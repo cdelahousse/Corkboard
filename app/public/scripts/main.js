@@ -17,9 +17,7 @@ require.config({
   }
 });
 
-require(['app', 'jquery'], function (app, $) {
+require(['helpers'], function (helpers) {
   'use strict';
-  // use app here
-  console.log(app);
-  console.log('Running jQuery %s', $().jquery);
+  helpers.log('Bootstrapping...');
 });
