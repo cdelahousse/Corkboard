@@ -1,0 +1,28 @@
+#wall > div { /* Debug code */
+  outline: 1px solid #4FD5D6;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.note {
+  width: 200px;
+  height: 200px;
+}
+
+#add-note {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 0;
+}
+
+#add-note img {
+  padding: 4px;
+  width: 40px;
+  height: 40px;
+}
