@@ -4,7 +4,7 @@ require.config({
     jquery: '../bower_components/jquery/jquery.min',
     require : '../bower_components/requirejs/require', // Minify?
     underscore: '../bower_components/underscore/underscore-min',
-    Backbone: '../bower_components/backbone/backbone-min',
+    backbone: '../bower_components/backbone/backbone-min',
     text : '../bower_components/requirejs-text/text',
     templates: '../templates'
   },
@@ -12,14 +12,15 @@ require.config({
     underscore: {
       exports: '_'
     },
-    Backbone: {
+    backbone: {
       deps: ["underscore", "jquery"],
       exports: "Backbone"
     }
   }
 });
 
-require(['utils'], function (utils) {
+require(['utils', 'app'], function (utils, app) {
   'use strict';
   utils.log('Bootstrapping...');
+  app.init();
 });
