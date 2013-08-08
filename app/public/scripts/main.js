@@ -19,7 +19,7 @@ require.config({
   }
 });
 
-require(['helpers'], function (helpers) {
+require(['utils'], function (utils) {
   'use strict';
-  helpers.log('Bootstrapping...');
+  utils.log('Bootstrapping...');
 });

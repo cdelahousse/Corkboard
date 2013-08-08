@@ -1,3 +1,4 @@
+//Application specific constants and helpers
 define(['underscore'], function (_) {
   'use strict';
 
