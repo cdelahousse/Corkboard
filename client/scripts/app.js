@@ -13,7 +13,7 @@ define(['views/Wall', 'collections/Notes', 'utils', 'gest',
     {data: 'ahhhhhhhhhhhh'},
     {data: 'ahhhhhhhhhhhh'},
     {data: 'ahhhhhhhhhhhh'}
-    ]);
+  ]);
   var wall;
   function init () {
     utils.log('Initializing ...');
@@ -23,10 +23,10 @@ define(['views/Wall', 'collections/Notes', 'utils', 'gest',
       collection : notes
     });
 
-
-    
+    $('#add-note').on('tap click', function () {
+      notes.add([ { data: 'arsta' } ]);
+    });
   }
-
   return {
     init : init
   };

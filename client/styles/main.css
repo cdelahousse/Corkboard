@@ -12,6 +12,7 @@ html, body {
 .note {
   width: 200px;
   height: 200px;
+  float: left;
 }
 
 #add-note {
