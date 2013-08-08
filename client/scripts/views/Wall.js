@@ -21,8 +21,8 @@ define(['views/NoteContainer', 'backbone', 'underscore', 'utils'],
       utils.log('Adding new Note: ' + model.cid); //XXX change to id
       var view = new NoteView({ model : model });
       this.$el.append(view.render().el);
+    },
 
-    }
   });
 
   return Wall;

@@ -12,6 +12,8 @@ html, body {
 .note {
   width: 200px;
   height: 200px;
+  padding: 10px;
+  margin: 0;
   float: left;
 }
 
