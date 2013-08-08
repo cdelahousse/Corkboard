@@ -6,7 +6,8 @@
     "jquery": "~2.0.3",
     "underscore": "~1.5.1",
     "backbone": "~1.0.0",
-    "requirejs-text": "~2.0.10"
+    "requirejs-text": "~2.0.10",
+    "gest": "http://134.117.49.79:6357/gest/head"
   },
   "devDependencies": {}
 }

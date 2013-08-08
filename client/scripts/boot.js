@@ -6,7 +6,8 @@ require.config({
     underscore: '../bower_components/underscore/underscore-min',
     backbone: '../bower_components/backbone/backbone-min',
     text : '../bower_components/requirejs-text/text',
-    templates: '../templates'
+    templates: '../templates',
+    gest : '../bower_components/gest/gest'
   },
   shim: {
     underscore: {
@@ -15,6 +16,9 @@ require.config({
     backbone: {
       deps: ["underscore", "jquery"],
       exports: "Backbone"
+    },
+    gest : {
+      exports : "Gest"
     }
   }
 });
