@@ -11,7 +11,14 @@ require.config({
   },
   shim: {
     underscore: {
-      exports: '_'
+      exports: '_',
+      init: function ( ) {
+        'use strict';
+        this._.templateSettings = {
+            interpolate : /\{\{(.+?)\}\}/g
+          };
+        return this._;
+      }
     },
     backbone: {
       deps: ["underscore", "jquery"],
