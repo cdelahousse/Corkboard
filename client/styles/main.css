@@ -1,5 +1,5 @@
 #wall > div { /* Debug code */
-  outline: 1px solid #4FD5D6;
+  /* outline: 1px solid #4FD5D6; */
 }
 
 html, body {
@@ -12,7 +12,7 @@ html, body {
 
 /* UI */
 #add-note {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0;
   padding: 0;
@@ -47,3 +47,7 @@ html, body {
   height: 250px;
 }
 
+/* Utils */
+.hide {
+  display: none;
+}

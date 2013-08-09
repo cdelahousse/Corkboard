@@ -23,8 +23,35 @@ define(['text!templates/core/noteContainer.html','backbone', 'underscore'],
         
       return this;
     },
+    events : {
+      'click .nav > .delete' : 'delete',
+      'click .nav > .edit' : function () { this.toggleNav(); this.edit(); },
+      'click .nav > .save' : function () { this.toggleNav(); this.save(); }
+    },
+
+    toggleNav : function () {
+      this.$el.find('.edit').toggleClass('hide');
+      this.$el.find('.save').toggleClass('hide');
+    },
+    // This should be overridden in nested view
+    save : function () {
+      //OR
+      //this.childView.save();
+
+    },
+    // This should be overridden in nested view
+    edit : function () {
+      //OR
+      // this.childView.edit()
+    },
+    delete : function () {
+      this.model.destroy();
+      // this.childView.remove(); //XXX when I have nested views
+      this.remove();
+    },
 
     // Note drag behaviour
+    // XXX Modularize and abstract away
     drag : function (view) {
 
       var target = this, //DOM elem
