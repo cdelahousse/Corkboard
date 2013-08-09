@@ -7,16 +7,10 @@ html, body {
   padding: 0;
   height: 100%;
   width: 100%;
+  background-color: #fff;
 }
 
-.note {
-  width: 200px;
-  height: 200px;
-  padding: 10px;
-  margin: 0;
-  float: left;
-}
-
+/* UI */
 #add-note {
   position: absolute;
   bottom: 0;
@@ -29,3 +23,27 @@ html, body {
   width: 40px;
   height: 40px;
 }
+
+/* NOTES */
+.note {
+  padding: 10px;
+  margin: 0;
+  float: left;
+}
+
+.note-bezel {
+  background-color: #efefef;
+  padding: 30px;
+}
+.note-bezel > .nav {
+  float: right;
+}
+
+.note-content {
+  background-color: #fff;
+  padding: 0;
+  margin: 0;
+  width: 250px;
+  height: 250px;
+}
+
