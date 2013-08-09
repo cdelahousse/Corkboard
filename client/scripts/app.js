@@ -11,7 +11,8 @@ define(['views/core/Wall', 'collections/Notes', 'utils', 'gest',
   notes.add([
     {data: 'ahhhhhhhhhhhh'},
     {data: 'ahhhhhhhhhhhh'},
-    {data: 'ahhhhhhhhhhhh'},
+    {type : 'image',
+      data: 'http://dummyimage.com/200/00bda7/0011ff.png&text=Test+Image'},
     {data: 'ahhhhhhhhhhhh'}
   ]);
   var wall;
