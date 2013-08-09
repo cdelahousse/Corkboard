@@ -5,23 +5,26 @@ define(['views/NoteContainer', 'backbone', 'underscore', 'utils'],
   var Wall = Backbone.View.extend({
     initialize : function () {
       this.$el.empty();
-
-      this.listenTo(this.collection, 'add', this.add);
-
-      this.collection.each(function(model) {
-        this.add(model);
-      }, this);
+      this.addAll();
+      this.listenTo(this.collection, 'add', this.addOne);
     },
+
     render : function () {
       return this;
     },
 
-    //Add Note to wall
-    add : function (model) {
+    // Add Note to wall
+    addOne : function (model) {
       utils.log('Adding new Note: ' + model.cid); //XXX change to id
       var view = new NoteView({ model : model });
       this.$el.append(view.render().el);
     },
+    //Add all nodes to wall
+    addAll : function () {
+      this.collection.each(function(model) {
+        this.addOne(model);
+      }, this);
+    }
 
   });
 

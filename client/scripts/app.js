@@ -23,7 +23,7 @@ define(['views/Wall', 'collections/Notes', 'utils', 'gest',
       collection : notes
     });
 
-    $('#add-note').on('tap click', function () {
+    $('#add-note').on('click', function () {
       notes.add([ { data: 'arsta' } ]);
     });
   }
