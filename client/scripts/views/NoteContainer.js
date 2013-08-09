@@ -12,26 +12,27 @@ define(['text!templates/core/noteContainer.html','backbone', 'underscore'],
     },
     render : function () {
       this.$el.html(this.template( this.model.toJSON() ));
-      var that = this;
-      this.el.addEventListener('drag-start', function (e) { 
-        that.drag.call(this, that, e);
+
+      // Add drag behaviour while preserving what should be the value of 'this'
+      // in Dom event handlers
+      var view = this;
+      this.el.addEventListener('drag-start', function () { 
+        // 'this' is DOM element
+        view.drag.call(this, view);
       });
         
       return this;
     },
-    events : {
-      // 'drag-start' : 'drag'
-    },
 
-    drag : function (view, e) {
-      console.log(view);
+    // Note drag behaviour
+    drag : function (view) {
 
-      var target = this,
+      var target = this, //DOM elem
           startOffsetX = view.el.getBoundingClientRect().left,
           startOffsetY = view.el.getBoundingClientRect().top;
 
-      var cssTransform = 'webkitTransform';
-
+      var transform = typeof target.style.transform === 'string' ?
+        'transform' : 'webkitTransform'; 
       
       target.addEventListener('drag-move', move);
       target.addEventListener('drag-end', end);
@@ -41,7 +42,7 @@ define(['text!templates/core/noteContainer.html','backbone', 'underscore'],
 
         var dx = e.detail.deltaX;
         var dy = e.detail.deltaY;
-        view.el.style[ cssTransform ] =
+        view.el.style[ transform ] =
           'translate(' + dx + 'px, ' + dy + 'px)';
       }
 
@@ -53,16 +54,12 @@ define(['text!templates/core/noteContainer.html','backbone', 'underscore'],
         view.el.style.top = top + 'px';
         view.el.style.left = left + 'px';
         view.el.style.position = 'absolute';
-        view.el.style[ cssTransform ] = '';
+        view.el.style[ transform ] = '';
 
         target.removeEventListener('drag-move', move);
         target.removeEventListener('drag-end', end);
         target.removeEventListener('drag-cancel', end);
-
-
       }
-
-
     }
   });
 
