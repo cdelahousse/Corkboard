@@ -1,6 +1,6 @@
 
 // Main entry point for the app after bootstrapping
-define(['views/Wall', 'collections/Notes', 'utils', 'gest', 
+define(['views/core/Wall', 'collections/Notes', 'utils', 'gest', 
     'jquery' ], function (WallView, Notes, utils, Gest, $) {
   'use strict';
 

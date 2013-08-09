@@ -1,6 +1,7 @@
-// View for Note Container
-define(['text!templates/core/noteContainer.html','backbone', 'underscore'],
-    function (noteTmpl, Backbone, _ ) {
+// View for Note Container, this includes the bezel 
+define(['text!templates/core/noteContainer.html','backbone', 'underscore', 
+    'require' ],
+    function (noteTmpl, Backbone, _ , require ) {
   'use strict';
 
   var NoteContainer = Backbone.View.extend({
@@ -8,6 +9,22 @@ define(['text!templates/core/noteContainer.html','backbone', 'underscore'],
     className : 'note',
     template : _.template(noteTmpl),
     initialize : function () {
+      var type = this.model.get('type');
+
+      type = 'text'; //XXX DEBUG
+
+      var childTemplate = 'text!templates/types/' + type;
+
+      var templates = [
+        childTemplate + '.html',
+        childTemplate + 'Edit.html',
+      ];
+        
+      var parentView = this; 
+      require(templates, function ( typeTmpl, typeEditTmpl ) {
+        console.log(typeTmpl);
+      });
+
 
     },
     render : function () {

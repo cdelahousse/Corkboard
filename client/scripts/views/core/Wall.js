@@ -1,4 +1,4 @@
-define(['views/NoteContainer', 'backbone', 'underscore', 'utils'], 
+define(['views/core/NoteContainer', 'backbone', 'underscore', 'utils'], 
     function (NoteView ,Backbone, _ , utils) {
   'use strict';
 
