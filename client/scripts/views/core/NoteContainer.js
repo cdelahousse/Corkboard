@@ -1,34 +1,33 @@
 // View for Note Container, this includes the bezel 
 define(['text!templates/core/noteContainer.html','backbone', 'underscore', 
-    'require' ],
-    function (noteTmpl, Backbone, _ , require ) {
+    'require', 'utils' ],
+    function (noteTmpl, Backbone, _ , require, utils ) {
   'use strict';
 
   var NoteContainer = Backbone.View.extend({
-    tagName : 'div',
-    className : 'note',
-    template : _.template(noteTmpl),
+    template : noteTmpl,
+    attributes : function (){
+      return { tag : 'div', class : 'note note-' + this.model.get('type') };
+    },
     initialize : function () {
       var type = this.model.get('type');
 
-      type = 'text'; //XXX DEBUG
-
-      var childTemplate = 'text!templates/types/' + type;
-
-      var templates = [
-        childTemplate + '.html',
-        childTemplate + 'Edit.html',
-      ];
-        
+      // Dynamically load view type
+      var viewType = [ 'views/types/' + utils.capitalize(type) ];
       var parentView = this; 
-      require(templates, function ( typeTmpl, typeEditTmpl ) {
-        console.log(typeTmpl);
+      require(viewType, function ( ChildView ) {
+
+        parentView.childView = new ChildView({
+          model : parentView.model,
+          el: parentView.el.querySelector('.note-content')
+        });
+
+        parentView.childView.render();
+
       });
-
-
     },
     render : function () {
-      this.$el.html(this.template( this.model.toJSON() ));
+      this.el.innerHTML = this.template;
 
       // Add drag behaviour while preserving what should be the value of 'this'
       // in Dom event handlers
@@ -46,26 +45,12 @@ define(['text!templates/core/noteContainer.html','backbone', 'underscore',
       'click .nav > .save' : function () { this.toggleNav(); this.save(); }
     },
 
-    toggleNav : function () {
-      this.$el.find('.edit').toggleClass('hide');
-      this.$el.find('.save').toggleClass('hide');
-    },
-    // This should be overridden in nested view
-    save : function () {
-      //OR
-      //this.childView.save();
+    toggleNav : function (){ this.$el.find('.edit,.save').toggleClass('hide');},
 
-    },
-    // This should be overridden in nested view
-    edit : function () {
-      //OR
-      // this.childView.edit()
-    },
-    delete : function () {
-      this.model.destroy();
-      // this.childView.remove(); //XXX when I have nested views
-      this.remove();
-    },
+    //Delegates to nested views
+    save : function () { this.childView.save(); },
+    edit : function () { this.childView.edit(); }, 
+    delete : function () { this.model.destroy(); this.remove(); },
 
     // Note drag behaviour
     // XXX Modularize and abstract away
