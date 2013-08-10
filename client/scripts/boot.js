@@ -30,8 +30,24 @@ require.config({
   }
 });
 
-require(['utils', 'app'], function (utils, app) {
+require(['views/core/App', 'collections/Notes', 'utils', 'gest'], 
+    function (AppView, Notes, utils) {
   'use strict';
-  utils.log('Bootstrapping...');
-  app.init();
+
+  utils.log('Initializing ...');
+  var notes = new Notes(); 
+
+  //Mock data
+  notes.add([
+    {data: 'ahhhhhhhhhhhh'},
+    {data: 'ahhhhhhhhhhhh'},
+    {type : 'image',
+      data: 'http://dummyimage.com/200/00bda7/0011ff.png&text=Test+Image'},
+    {data: 'ahhhhhhhhhhhh'}
+  ]);
+
+  new AppView({
+    el : '#app',
+    collection : notes
+  });
 });

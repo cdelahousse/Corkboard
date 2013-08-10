@@ -4,13 +4,11 @@ define(['views/core/Note', 'backbone', 'underscore', 'utils'],
 
   var Wall = Backbone.View.extend({
     initialize : function () {
-      this.$el.empty();
-      this.addAll();
       this.listenTo(this.collection, 'add', this.addOne);
     },
-
     render : function () {
-      return this;
+      this.$el.empty();
+      this.addAll();
     },
 
     // Add Note to wall
