@@ -29,16 +29,9 @@ require(['views/core/App', 'collections/Notes', 'config', 'utils', 'gest'],
   // Initialize global configuration settings
   config.init();
 
-  var notes = new Notes(); 
+  var notes = new Notes();
 
-  //Mock data
-  notes.add([
-    {data: 'ahhhhhhhhhhhh'},
-    {data: 'ahhhhhhhhhhhh'},
-    {type : 'image',
-      data: 'http://dummyimage.com/200/00bda7/0011ff.png&text=Test+Image'},
-    {data: 'ahhhhhhhhhhhh'}
-  ]);
+  notes.fetch();
 
   new AppView({
     el : '#app',

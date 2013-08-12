@@ -6,8 +6,10 @@ define(['backbone'], function (Backbone) {
     defaults : {
       type : 'text',
       state : { },
-      data : 'Nadda'
-    }
+      data : ''
+    },
+    idAttribute : '_id' //XXX Refactor Mongo Id is bad
+
   });
 
   return Note;

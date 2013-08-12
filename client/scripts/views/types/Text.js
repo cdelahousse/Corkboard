@@ -16,7 +16,7 @@ define(['backbone'], function (Backbone) {
     },
     save : function () {
       var text = this.$el.find('textarea').val();
-      this.model.set('data', text);
+      this.model.save('data', text);
     }
   });
 
