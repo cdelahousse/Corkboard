@@ -12,6 +12,9 @@ define(['text!templates/core/noteContainer.html','backbone', 'underscore',
     initialize : function () {
       var type = this.model.get('type');
 
+      this.listenTo(this.model, 'change', this.render);
+      this.listenTo(this.model, 'destroy', this.removeView);
+
       // Dynamically load view type
       var viewType = [ 'views/types/' + utils.capitalize(type) ];
       var parentView = this; 
@@ -40,17 +43,22 @@ define(['text!templates/core/noteContainer.html','backbone', 'underscore',
       return this;
     },
     events : {
-      'click .nav > .delete' : 'delete',
+      'click .nav > .delete' : function () { this.destroy(); },
       'click .nav > .edit' : function () { this.toggleNav(); this.edit(); },
       'click .nav > .save' : function () { this.toggleNav(); this.save(); }
     },
 
+    // Delegated to nested views
     toggleNav : function (){ this.$el.find('.edit,.save').toggleClass('hide');},
-
-    //Delegates to nested views
     save : function () { this.childView.save(); },
     edit : function () { this.childView.edit(); }, 
-    delete : function () { this.model.destroy(); this.remove(); },
+    destroy : function () { this.model.destroy(); },
+
+    // Remove this view and child view from DOM
+    removeView : function () {
+      this.childView.remove();
+      this.remove();
+    },
 
     // Note drag behaviour
     // XXX Modularize and abstract away
