@@ -1,7 +1,7 @@
 // View for Note Container, this includes the bezel 
 define(['text!templates/core/noteContainer.html','backbone', 'underscore', 
-    'require', 'utils' ],
-    function (noteTmpl, Backbone, _ , require, utils ) {
+    'require', 'utils', 'config' ],
+    function (noteTmpl, Backbone, _ , require, utils, config ) {
   'use strict';
 
   var NoteContainer = Backbone.View.extend({
@@ -16,7 +16,7 @@ define(['text!templates/core/noteContainer.html','backbone', 'underscore',
       this.listenTo(this.model, 'destroy', this.removeView);
 
       // Dynamically load view type
-      var viewType = [ 'views/types/' + utils.capitalize(type) ];
+      var viewType = [ config.requireTypeViews + utils.capitalize(type) ];
       var parentView = this; 
       require(viewType, function ( ChildView ) {
 

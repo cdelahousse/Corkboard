@@ -13,7 +13,6 @@ define(['underscore'], function (_) {
     return s.charAt(0).toUpperCase() + s.slice(1); 
   }
 
-
   return {
     log : log,
     capitalize : capitalize
