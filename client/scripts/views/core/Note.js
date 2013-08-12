@@ -16,13 +16,17 @@ define(['text!templates/core/noteContainer.html','backbone', 'underscore',
       // Dynamically load view type
       var type = this.model.get('type');
       var viewType = [ config.requireTypeViews + utils.capitalize(type) ];
-      var parentView = this; 
-      require(viewType, function ( ChildView ) {
-        parentView.childView = new ChildView({
-          model : parentView.model,
-          el: parentView.el.querySelector('.note-content')
+      require(viewType, (function ( ChildView ) {
+        this.childView = new ChildView({
+          model : this.model,
+          el: this.el.querySelector('.note-content')
         });
-      });
+
+        //Initialize to Edit Mode on model creation
+        if (this.model.isNew()) {
+          this.edit();
+        }
+      }).bind(this));
     },
     render : function () {
 
@@ -38,17 +42,19 @@ define(['text!templates/core/noteContainer.html','backbone', 'underscore',
         
       return this;
     },
+
     events : {
-      'click .nav > .delete' : function () { this.destroy(); },
-      'click .nav > .edit' : function () { this.toggleNav(); this.edit(); },
-      'click .nav > .save' : function () { this.toggleNav(); this.save(); }
+      'click .nav > .delete' : 'destroy',
+      'click .nav > .edit' : 'edit',
+      'click .nav > .save' : 'save'
     },
 
     // Delegated to nested views
-    toggleNav : function (){ this.$el.find('.edit,.save').toggleClass('hide');},
-    save : function () { this.childView.save(); },
-    edit : function () { this.childView.edit(); }, 
+    save : function () { this.childView.save(); this.toggleNav(); }, 
+    edit : function () { this.childView.edit(); this.toggleNav(); }, 
     destroy : function () { this.model.destroy(); },
+
+    toggleNav : function (){ this.$el.find('.edit,.save').toggleClass('hide');},
 
     // Note drag behaviour
     // XXX Modularize and abstract away
