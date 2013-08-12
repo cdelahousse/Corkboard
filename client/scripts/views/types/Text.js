@@ -5,9 +5,11 @@ define(['backbone'], function (Backbone) {
   var Text = Backbone.View.extend({
     initialize : function () {
       this.listenTo(this.model, 'change', this.render);
+      this.listenTo(this.model, 'destroy', this.remove);
+      this.render();
     },
     render : function () {
-      var text = this.model.get('data');
+      var text = this.model.escape('data');
       this.el.innerHTML = text;
     },
     edit : function () {

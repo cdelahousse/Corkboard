@@ -10,26 +10,22 @@ define(['text!templates/core/noteContainer.html','backbone', 'underscore',
       return { tag : 'div', class : 'note note-' + this.model.get('type') };
     },
     initialize : function () {
-      var type = this.model.get('type');
 
-      this.listenTo(this.model, 'change', this.render);
-      this.listenTo(this.model, 'destroy', this.removeView);
-
+      this.listenTo(this.model, 'destroy', this.remove);
+      
       // Dynamically load view type
+      var type = this.model.get('type');
       var viewType = [ config.requireTypeViews + utils.capitalize(type) ];
       var parentView = this; 
       require(viewType, function ( ChildView ) {
-
         parentView.childView = new ChildView({
           model : parentView.model,
           el: parentView.el.querySelector('.note-content')
         });
-
-        parentView.childView.render();
-
       });
     },
     render : function () {
+
       this.el.innerHTML = this.template;
 
       // Add drag behaviour while preserving what should be the value of 'this'
@@ -53,12 +49,6 @@ define(['text!templates/core/noteContainer.html','backbone', 'underscore',
     save : function () { this.childView.save(); },
     edit : function () { this.childView.edit(); }, 
     destroy : function () { this.model.destroy(); },
-
-    // Remove this view and child view from DOM
-    removeView : function () {
-      this.childView.remove();
-      this.remove();
-    },
 
     // Note drag behaviour
     // XXX Modularize and abstract away

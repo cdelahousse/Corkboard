@@ -13,8 +13,7 @@ define(['views/core/Wall', 'backbone', 'underscore', 'utils'],
     },
     events : {
       'click #add-note' : function () {
-        // Dummy Data
-        this.collection.add([ { data: 'arsta' } ]);
+        this.collection.add({ data: 'Created via button' });
       }
     }
 
