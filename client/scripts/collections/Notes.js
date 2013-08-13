@@ -1,9 +1,8 @@
 
-define(['backbone', 'models/Note', 'config'], function (Backbone, Note, config) {
+define(['backbone', 'models/Note'], function (Backbone, Note) {
   'use strict';
 
   var Notes = Backbone.Collection.extend({
-    url : config.apiUrl,
     model : Note
   });
 

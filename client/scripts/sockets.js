@@ -8,6 +8,8 @@ define(['socketio', 'utils'], function (io, utils) {
     socket.on('connect', function () {
       utils.log('Socket.io connected');
     });
+
+    return socket;
   }
 
   return {

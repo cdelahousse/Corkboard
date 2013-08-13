@@ -28,9 +28,12 @@ require(['views/core/App', 'collections/Notes', 'config', 'utils',
   utils.log('Initializing ...');
 
   config.init();
-  sockets.init(config.url);
+  var socket = sockets.init(config.url);
 
-  var notes = new Notes();
+  var notes = new Notes({
+    url : config.apiUrl,
+    socket : socket
+  });
 
   // notes.fetch();
 
