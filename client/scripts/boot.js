@@ -6,8 +6,8 @@ require.config({
     underscore: '../bower_components/underscore/underscore-min',
     backbone: '../bower_components/backbone/backbone-min',
     text : '../bower_components/requirejs-text/text',
+    socketio : '../bower_components/socket.io-client/dist/socket.io.min',
     gest : '../bower_components/gest/gest',
-
     templates: '../templates'
   },
   shim: {
@@ -16,22 +16,25 @@ require.config({
       deps: ["underscore", "jquery"],
       exports: "Backbone"
     },
-    gest : { exports : "Gest" }
+    gest : { exports : "Gest" },
+    socketio : { exports : "io" }
   }
 });
 
-require(['views/core/App', 'collections/Notes', 'config', 'utils', 'gest'], 
-    function (AppView, Notes, config, utils) {
+require(['views/core/App', 'collections/Notes', 'config', 'utils',
+    'socketio', 'gest'], function (AppView, Notes, config, utils, io) {
   'use strict';
 
   utils.log('Initializing ...');
 
-  // Initialize global configuration settings
-  config.init();
+  var socket = io.connect(config.url);
+  socket.on('connect', function (socket) {
+    utils.log('Socket.io connected');
+  });
 
   var notes = new Notes();
 
-  notes.fetch();
+  // notes.fetch();
 
   new AppView({
     el : '#app',

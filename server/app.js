@@ -7,7 +7,10 @@ var express = require('express')
   , config = require('./config') // Configuation constants
   ;
 
-var app = express();
+var app = express()
+  , server = http.createServer(app)
+  , io = require('socket.io').listen(server)
+  ;
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', config.pathServer + '/views');
@@ -25,12 +28,13 @@ if ('development' === app.get('env')) {
 
 app.get('/', routes.index);
 
-http.createServer(app).listen(app.get('port'), function(){
+server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
+io.sockets.on('connection', function (socket) {
 
-
+});
 
 
 var mongoose = require('mongoose');
@@ -52,64 +56,4 @@ var NoteSchema = new Schema({
 
 var NoteModel = mongoose.model('Note', NoteSchema);
 
-
-app.post('/notes', function (req, res) {
-  var note = new NoteModel({
-    type : req.body.type,
-    data : req.body.data,
-    state : req.body.state
-  });
-
-  note.save(function (err) {
-    console.log('craeting new note'); //XXX
-    console.log(err); //XXX
-  });
-
-  return res.send(note);
-});
-
-
-//XXX Gross, do not use MongoID
-app.get( '/notes/:id', function( req, res ) {
-
-  console.log('returning note', req.params.id); //XXX
-  return NoteModel.findById(req.params.id, function (err, note) {
-    if (err) return err; //XXX
-    return res.send(note);
-  });
-
-});
-
-app.put( '/notes/:id', function( req, res ) {
-  console.log('updating note', req.params.id); //XXX
-  return NoteModel.findById(req.params.id, function (err, note) {
-    if (err) return err; //XXX
-    note.data = req.body.data;
-    note.state = req.body.state;
-    note.save(function(err) {
-      if (err) return console.log(err);
-      return res.send(note);
-    });
-
-  });
-});
-
-app.delete( '/notes/:id', function( req, res ) {
-  console.log('deleting note', req.params.id); //XXX
-  return NoteModel.findById(req.params.id, function (err, note) {
-    if (err) return err; //XXX
-    return note.remove(function (err) {
-      if (err) return err; //XXX
-      return res.send( '' );
-    });
-  });
-});
-
-app.get('/notes', function (req, res) {
-  return NoteModel.find(function (err, notes) {
-    if (err) return err; //XXX
-    console.log('returning notes'); //XXX
-    return res.send(notes);
-  });
-});
 
