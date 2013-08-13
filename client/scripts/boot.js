@@ -22,15 +22,12 @@ require.config({
 });
 
 require(['views/core/App', 'collections/Notes', 'config', 'utils',
-    'socketio', 'gest'], function (AppView, Notes, config, utils, io) {
+    'sockets', 'gest'], function (AppView, Notes, config, utils, sockets) {
   'use strict';
 
   utils.log('Initializing ...');
 
-  var socket = io.connect(config.url);
-  socket.on('connect', function (socket) {
-    utils.log('Socket.io connected');
-  });
+  sockets.init(config.url);
 
   var notes = new Notes();
 
