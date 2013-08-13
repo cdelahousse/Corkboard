@@ -52,11 +52,8 @@ var NoteSchema = new Schema({
 
 var NoteModel = mongoose.model('Note', NoteSchema);
 
-app.get('/api', function (req, res ) {
-  res.send('API works');
-});
 
-app.post('/api/notes', function (req, res) {
+app.post('/notes', function (req, res) {
   var note = new NoteModel({
     type : req.body.type,
     data : req.body.data,
@@ -73,7 +70,7 @@ app.post('/api/notes', function (req, res) {
 
 
 //XXX Gross, do not use MongoID
-app.get( '/api/notes/:id', function( req, res ) {
+app.get( '/notes/:id', function( req, res ) {
 
   console.log('returning note', req.params.id); //XXX
   return NoteModel.findById(req.params.id, function (err, note) {
@@ -83,7 +80,7 @@ app.get( '/api/notes/:id', function( req, res ) {
 
 });
 
-app.put( '/api/notes/:id', function( req, res ) {
+app.put( '/notes/:id', function( req, res ) {
   console.log('updating note', req.params.id); //XXX
   return NoteModel.findById(req.params.id, function (err, note) {
     if (err) return err; //XXX
@@ -97,7 +94,7 @@ app.put( '/api/notes/:id', function( req, res ) {
   });
 });
 
-app.delete( '/api/notes/:id', function( req, res ) {
+app.delete( '/notes/:id', function( req, res ) {
   console.log('deleting note', req.params.id); //XXX
   return NoteModel.findById(req.params.id, function (err, note) {
     if (err) return err; //XXX
@@ -108,7 +105,7 @@ app.delete( '/api/notes/:id', function( req, res ) {
   });
 });
 
-app.get('/api/notes', function (req, res) {
+app.get('/notes', function (req, res) {
   return NoteModel.find(function (err, notes) {
     if (err) return err; //XXX
     console.log('returning notes'); //XXX
