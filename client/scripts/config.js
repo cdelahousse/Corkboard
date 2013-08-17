@@ -10,7 +10,7 @@ define(['underscore'], function  ( _ ) {
   return {
     init : init,
     appUrl : 'http://localhost:3000',
-    apiUrl : '/notes',
+    apiUrl : 'notes',
     requireBaseUrl : requirejs.s.contexts.baseUrl,
     requireTypeViews : 'views/types/',
     requireCoreViews : 'views/core/'
