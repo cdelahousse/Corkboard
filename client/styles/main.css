@@ -47,7 +47,13 @@ html, body {
   height: 250px;
 }
 
+/* Dragging */
+.note.highlight > .note-bezel {
+  outline: 2px solid #4FD5D6;
+}
+
 /* Utils */
 .hide {
   display: none;
 }
+
