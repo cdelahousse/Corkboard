@@ -12,9 +12,10 @@ db.once('open', function callback () {
 
 var Schema = mongoose.Schema;
 var NoteSchema = new Schema({ 
-  // id : String,
+  title : String,
   type : String,
-  state : Schema.Types.Mixed,
+  meta : Schema.Types.Mixed,
+  layouts : Schema.Types.Mixed,
   data :  Schema.Types.Mixed
 });
 
@@ -23,9 +24,11 @@ var NoteModel = mongoose.model('Note', NoteSchema);
 function create(options, next) {
   NoteModel.create( {
     //XXX Refactor
+    title : options.title,
     type : options.type,
+    layouts : options.layouts,
     data : options.data,
-    state : options.state
+    meta : options.meta
   }, function (err, note) {
     next(err, note);
   });
@@ -45,8 +48,10 @@ function update(options, next) {
     NoteModel.findById(options._id, function (err, note) {
       if (err) { return  next(err); }
       //XXX This stuff should be refactored
+      note.title = options.title;
+      note.layouts = options.layouts;
       note.data = options.data;
-      note.state = options.state;
+      note.meta = options.meta;
       note.save(function(err) {
         if (err) { return next(err); }
         return next(null, note);
