@@ -20,8 +20,16 @@ define(['text!templates/core/noteContainer.html','behaviours/Drag',
       this.behaviour.start(function () {
         this.$el.addClass('highlight');
       });
-      this.behaviour.end(function () {
+      this.behaviour.end(function (pos) {
         this.$el.removeClass('highlight');
+        var layouts = this.model.get('layouts');
+        if (!layouts.free) {
+          layouts.free = {};
+        }
+        layouts.free.x = pos.x;
+        layouts.free.y = pos.y;
+
+        this.model.save('layouts', layouts);
       });
       this.behaviour.cancel(function () {
         this.$el.removeClass('highlight');

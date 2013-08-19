@@ -90,7 +90,10 @@ define(['underscore'], function ( _ ) {
     view.el.style.position = 'absolute';
     view.el.style[ transform ] = '';
 
-    this.userHandlers.end && this.userHandlers.end(e);
+    this.userHandlers.end && this.userHandlers.end({
+      x : top,
+      y : left
+    });
   }
   function cancel(e) {
     this.removeListenersFromTarget(e);
