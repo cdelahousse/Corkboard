@@ -5,11 +5,14 @@ Generic notes on a wall framework
 ### Features
 * Implement layouts
 
+## Small items
+* Nested models on client (meta and layouts)
+
 ### Annoyances
 * Validation on client side
 * Validation on server side
 * Clean db output ( eg: remove `__v`)
-* have proper ID's
+* have proper ID's (not mongo `_id`)
 
 ### ioBind Bugs
 * make ioBind ACTUALLY a drop in replacement
