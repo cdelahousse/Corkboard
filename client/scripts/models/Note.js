@@ -4,8 +4,10 @@ define(['backbone', 'config'], function (Backbone, config) {
 
   var Note = Backbone.Model.extend({
     defaults : {
+      title : 'Untitled',
       type : 'text',
-      state : { },
+      meta : { },
+      layouts : { },
       data : ''
     },
     idAttribute : '_id', //XXX Refactor Mongo Id is bad
