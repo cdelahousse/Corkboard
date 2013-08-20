@@ -91,8 +91,8 @@ define(['underscore'], function ( _ ) {
     view.el.style[ transform ] = '';
 
     this.userHandlers.end && this.userHandlers.end({
-      x : top,
-      y : left
+      x : left,
+      y : top
     });
   }
   function cancel(e) {

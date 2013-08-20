@@ -15,6 +15,7 @@ define(['text!templates/core/noteContainer.html','behaviours/Drag',
 
       //Add drag behaviour
       this.behaviour = new DragBehaviour(this);
+      this.listenTo(this.model, 'change:layouts', this.setLayout);
 
       //Add hook/handlers for different momends
       this.behaviour.start(function () {
@@ -52,6 +53,8 @@ define(['text!templates/core/noteContainer.html','behaviours/Drag',
     },
     render : function () {
       this.el.innerHTML = this.template;
+      this.setLayout();
+
       return this;
     },
     events : {
@@ -66,6 +69,15 @@ define(['text!templates/core/noteContainer.html','behaviours/Drag',
     destroy : function () { this.model.destroy(); },
 
     toggleNav : function (){ this.$el.find('.edit,.save').toggleClass('hide');},
+
+    setLayout : function () {
+      var layouts = this.model.get('layouts');
+      if (layouts.free) {
+        this.el.style.position = 'absolute';
+        this.el.style.left = layouts.free.x + 'px';
+        this.el.style.top = layouts.free.y + 'px';
+      }
+    }
   });
 
   return NoteContainer;
