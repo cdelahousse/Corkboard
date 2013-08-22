@@ -9,7 +9,8 @@ define(['backbone'], function (Backbone) {
       this.render();
     },
     render : function () {
-      this.el.innerHTML = '<img src="' + this.model.get('data') + '" />';
+      this.el.innerHTML = '<img src="' + this.model.get('data') + 
+        '" style="max-width:100%" />';
     },
     edit : function () {
       var src = this.model.get('data');
