@@ -5,6 +5,8 @@ define(['backbone'], function (Backbone) {
   var Image = Backbone.View.extend({
     initialize : function () {
       this.listenTo(this.model, 'change', this.render);
+      this.listenTo(this.model, 'destroy', this.remove);
+      this.render();
     },
     render : function () {
       this.el.innerHTML = '<img src="' + this.model.get('data') + '" />';
@@ -15,7 +17,8 @@ define(['backbone'], function (Backbone) {
     },
     save : function () {
       var src = this.$el.find('input').val();
-      this.model.set('data', src);
+      this.model.save('data', src);
+      if (!this.model.hasChanged()) { this.render(); }
     }
   });
   return Image;

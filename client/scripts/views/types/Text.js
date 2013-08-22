@@ -19,6 +19,9 @@ define(['backbone'], function (Backbone) {
     save : function () {
       var text = this.$el.find('textarea').val();
       this.model.save('data', text);
+
+      // Rendereven if model hasn't changed
+      if (!this.model.hasChanged()) { this.render(); }
     }
   });
 
