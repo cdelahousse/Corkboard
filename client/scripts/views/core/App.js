@@ -1,11 +1,11 @@
-define(['views/core/Wall', 'backbone', 'underscore', 'config', 'utils'],
-    function (WallView, Backbone, _ , config, utils) {
+define(['views/core/Workspace', 'backbone', 'underscore', 'config', 'utils'],
+    function (WorkspaceView, Backbone, _ , config, utils) {
   'use strict';
 
   var App = Backbone.View.extend({
     initialize : function () {
-      this.WallView = new WallView({
-        el : '#wall',
+      this.WorkspaceView = new WorkspaceView({
+        el : '#workspace',
         collection : this.collection
       });
 
@@ -19,7 +19,7 @@ define(['views/core/Wall', 'backbone', 'underscore', 'config', 'utils'],
         select.appendChild(elem);
       });
 
-      this.WallView.render();
+      this.WorkspaceView.render();
     },
     events : {
       'click #note-add' : function () {
