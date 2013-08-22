@@ -8,6 +8,10 @@ Generic notes on a wall framework
 ## Small items
 * Nested models on client (meta and layouts)
 
+## Nav
+* Dynamically generate list of available types
+* Add validation
+
 ### Annoyances
 * Validation on client side
 * Validation on server side

@@ -10,18 +10,29 @@ html, body {
   background-color: #fff;
 }
 
-/* UI */
-#add-note {
+/* Nav */
+nav {
   position: fixed;
   bottom: 0;
   right: 0;
   padding: 0;
 }
 
-#add-note img {
-  padding: 4px;
+#note-add img {
+  padding: 4px 0;
   width: 40px;
   height: 40px;
+}
+
+#note-add {
+  float: left;
+}
+
+#input-section {
+  float:right;
+}
+#note-title {
+  display: block;
 }
 
 /* NOTES */

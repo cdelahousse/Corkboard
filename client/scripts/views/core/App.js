@@ -12,8 +12,15 @@ define(['views/core/Wall', 'backbone', 'underscore', 'utils'],
       this.WallView.render();
     },
     events : {
-      'click #add-note' : function () {
-        this.collection.add({ data: 'Created via button' });
+      'click #note-add' : function () {
+        // XXX Add validation
+        var type = $('#note-type').val().trim().toLowerCase();
+        var title = $('#note-title').val().trim();
+        this.collection.add({ 
+          data: 'Created via button',
+          type: type,
+          title: title
+        });
       }
     }
 
