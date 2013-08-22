@@ -13,7 +13,7 @@ define(['underscore'], function  ( _ ) {
     apiUrl : 'notes',
     requireBaseUrl : requirejs.s.contexts.baseUrl,
     requireTypeViews : 'types/',
-    requireCoreViews : 'views/core/',
+    requireCoreViews : 'core/',
     noteTypes : [ 'image', 'text' ]
   };
   

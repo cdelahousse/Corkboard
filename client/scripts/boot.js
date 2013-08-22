@@ -29,7 +29,7 @@ require.config({
   }
 });
 
-require(['views/core/App', 'collections/Notes', 'config', 'utils',
+require(['core/App', 'collections/Notes', 'config', 'utils',
     'sockets', 'gest', 'iobind'], function (AppView, Notes, config, utils, sockets) {
   'use strict';
 

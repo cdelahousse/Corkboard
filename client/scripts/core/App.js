@@ -1,4 +1,4 @@
-define(['views/core/Workspace', 'backbone', 'underscore', 'config', 'utils'],
+define(['core/Workspace', 'backbone', 'underscore', 'config', 'utils'],
     function (WorkspaceView, Backbone, _ , config, utils) {
   'use strict';
 
