@@ -1,5 +1,5 @@
-define(['views/core/Wall', 'backbone', 'underscore', 'utils'], 
-    function (WallView, Backbone, _ , utils) {
+define(['views/core/Wall', 'backbone', 'underscore', 'config', 'utils'],
+    function (WallView, Backbone, _ , config, utils) {
   'use strict';
 
   var App = Backbone.View.extend({
@@ -7,6 +7,16 @@ define(['views/core/Wall', 'backbone', 'underscore', 'utils'],
       this.WallView = new WallView({
         el : '#wall',
         collection : this.collection
+      });
+
+      var nav = this.el.getElementsByTagName('nav')[0];
+
+      //Generate note type pull down
+      var select = nav.querySelector('#note-type');
+      config.noteTypes.forEach(function (type) {
+        var elem = document.createElement('option');
+        elem.innerHTML = utils.capitalize(type);
+        select.appendChild(elem);
       });
 
       this.WallView.render();
