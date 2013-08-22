@@ -9,7 +9,6 @@ Generic notes on a wall framework
 * Nested models on client (meta and layouts)
 
 ## Nav
-* Dynamically generate list of available types
 * Add validation
 
 ### Annoyances
@@ -25,4 +24,6 @@ Generic notes on a wall framework
 * remove window.socket dependency
 * urlRoot on model should be able to have leading slash
 * model socket should inherit from collection, not window.socket
+* I can't add the instance of the model directly to a collection without the
+  doubling bug.
 

@@ -26,11 +26,18 @@ define(['views/core/Wall', 'backbone', 'underscore', 'config', 'utils'],
         // XXX Add validation
         var type = $('#note-type').val().trim().toLowerCase();
         var title = $('#note-title').val().trim();
-        this.collection.add({ 
-          data: 'Created via button',
-          type: type,
-          title: title
-        });
+        var attrs = {
+          data : 'Created via button',
+          type : type,
+          title : title
+        };
+
+        //XXX This is stupid. To fix the doubling bug, I can't add it 
+        //directly to the collection. For this to work in a nicer way, I should
+        //just let the collection do the model creation... Oh sigh...
+        var Model = this.collection.model;
+        (new Model(attrs)).save();
+
       }
     }
 
