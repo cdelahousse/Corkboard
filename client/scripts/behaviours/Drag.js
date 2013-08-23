@@ -61,6 +61,8 @@ define(['underscore'], function ( _ ) {
     target.addEventListener('drag-end', this.boundHandlers.end);
     target.addEventListener('drag-cancel', this.boundHandlers.cancel);
 
+    this.view.el.classList.add('dragging');
+
     this.userHandlers.start && this.userHandlers.start(e);
   }
   function move (e) {
@@ -72,6 +74,8 @@ define(['underscore'], function ( _ ) {
     var dy = e.detail.deltaY;
     this.view.el.style[ transform ] =
       'translate(' + dx + 'px, ' + dy + 'px)';
+
+    this.view.el.classList.add('dragging');
 
     this.userHandlers.move && this.userHandlers.move(e);
   }
@@ -90,6 +94,9 @@ define(['underscore'], function ( _ ) {
     view.el.style.position = 'absolute';
     view.el.style[ transform ] = '';
 
+
+    view.el.classList.remove('dragging');
+
     this.userHandlers.end && this.userHandlers.end({
       x : left,
       y : top
@@ -99,7 +106,9 @@ define(['underscore'], function ( _ ) {
     this.removeListenersFromTarget(e);
     var transform = typeof e.target.style.transform === 'string' ?
       'transform' : 'webkitTransform';
-    view.el.style[ transform ] = '';
+    this.view.el.style[ transform ] = '';
+
+    this.view.el.classList.remove('dragging');
 
     this.userHandlers.cancel && this.userHandlers.cancel(e);
   }
