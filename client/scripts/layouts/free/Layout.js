@@ -1,4 +1,4 @@
-define(['layouts/free/Wrapper'], function (Wrapper) {
+define(['layouts/free/Wrapper', 'utils'], function (Wrapper, utils) {
   'use strict';
 
   var FreeLayout = function (parentElem) {
@@ -10,6 +10,8 @@ define(['layouts/free/Wrapper'], function (Wrapper) {
     var layoutArea = this.layoutArea = document.createElement('div');
     layoutArea.className = 'layout layout-free';
     parentElem.appendChild(this.layoutArea);
+
+    utils.loadCss('layouts/free.css');
   };
 
   FreeLayout.prototype = {

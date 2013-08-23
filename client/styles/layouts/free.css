@@ -1,0 +1,12 @@
+.layout-free {
+
+}
+
+.note-wrapper-free {
+  z-index: 10;
+}
+
+.note-wrapper-free.dragging {
+  z-index: 1000;
+}
+

@@ -1,5 +1,5 @@
 //Application specific constants and helpers
-define(['underscore'], function (_) {
+define(['underscore', 'config'], function (_, config) {
   'use strict';
 
   // Logger abstraction
@@ -13,8 +13,20 @@ define(['underscore'], function (_) {
     return s.charAt(0).toUpperCase() + s.slice(1); 
   }
 
+  // Load CSS relative to the style sheet directory
+  var loadedSheets = [];
+  function loadCss (url) {
+    if (loadedSheets.indexOf(url) > -1) { return; }
+    var link = document.createElement("link");
+    link.type = "text/css";
+    link.rel = "stylesheet";
+    link.href = config.cssUrl + url;
+    document.getElementsByTagName("head")[0].appendChild(link);
+  }
+
   return {
     log : log,
-    capitalize : capitalize
+    capitalize : capitalize,
+    loadCss : loadCss
   };
 });

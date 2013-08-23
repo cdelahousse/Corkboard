@@ -25,10 +25,10 @@ define(['behaviours/Drag' , 'core/NoteBezel', 'backbone', 'underscore', 'utils',
 
       //Add hook/handlers for different moments
       this.behaviour.start(function () {
-        this.$el.addClass('highlight');
+        this.$el.addClass('dragging');
       });
       this.behaviour.end(function (pos) {
-        this.$el.removeClass('highlight');
+        this.$el.removeClass('dragging');
         var layouts = this.model.get('layouts');
         if (!layouts.free) {
           layouts.free = {};
@@ -39,7 +39,7 @@ define(['behaviours/Drag' , 'core/NoteBezel', 'backbone', 'underscore', 'utils',
         this.model.save('layouts', layouts);
       });
       this.behaviour.cancel(function () {
-        this.$el.removeClass('highlight');
+        this.$el.removeClass('dragging');
       });
 
     },
