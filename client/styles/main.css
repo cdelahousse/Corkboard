@@ -45,6 +45,7 @@ nav {
 .note-bezel {
   background-color: #efefef;
   padding: 30px;
+  outline: 1px solid #000;
 }
 .note-bezel > .nav {
   float: right;
