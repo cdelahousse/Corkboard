@@ -81,5 +81,5 @@
     "passfail"      : false,    // true: Stop on first error
     "white"         : false,    // true: Check against strict whitespace and indentation rules
 
-    "predef"        : [ "require", "define" ]      
+    "predef"        : [ "require", "define", "document" ]      
 }
