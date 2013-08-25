@@ -2,6 +2,12 @@
 
 }
 
+.note-wrapper-free .note-content {
+  padding: 0;
+  margin: 0;
+  width: 250px;
+}
+
 .note-wrapper-free {
   z-index: 10;
 }
