@@ -1,7 +1,6 @@
 //Wrapper that helps the Layout manage the note view's placement within the
 //layout
-define(['behaviours/Drag' , 'core/NoteBezel', 'backbone', 'underscore', 'utils', 'config' ],
-    function (DragBehaviour, NoteBezel, Backbone) {
+define(['behaviours/Drag', 'backbone' ], function (DragBehaviour, Backbone) {
   'use strict';
 
   var FreeLayoutElementWrapper = Backbone.View.extend({
