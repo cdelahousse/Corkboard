@@ -10,6 +10,8 @@
 
 .note-wrapper-free {
   z-index: 10;
+  padding: 10px;
+  float: left;
 }
 
 .note-wrapper-free.dragging {

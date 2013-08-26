@@ -1,4 +1,4 @@
-define(['core/NoteBezel', 'layouts/free/Layout', 'backbone', 'underscore', 'utils'], 
+define(['core/NoteBezel', 'layouts/column/Layout', 'backbone', 'underscore', 'utils'], 
     function (NoteBezel , Layout, Backbone, _ , utils) {
   'use strict';
 

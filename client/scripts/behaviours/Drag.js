@@ -89,18 +89,15 @@ define(['underscore'], function ( _ ) {
       'transform' : 'webkitTransform';
 
     var view = this.view;
-    view.el.style.top = top + 'px';
-    view.el.style.left = left + 'px';
-    view.el.style.position = 'absolute';
+    // view.el.style.top = top + 'px';
+    // view.el.style.left = left + 'px';
+    // view.el.style.position = 'absolute';
     view.el.style[ transform ] = '';
 
 
     view.el.classList.remove('dragging');
 
-    this.userHandlers.end && this.userHandlers.end({
-      x : left,
-      y : top
-    });
+    this.userHandlers.end && this.userHandlers.end(e);
   }
   function cancel(e) {
     this.removeListenersFromTarget(e);

@@ -22,15 +22,20 @@ define(['behaviours/Drag', 'backbone' ], function (DragBehaviour, Backbone) {
       //Add drag behaviour
       this.behaviour = new DragBehaviour(this);
 
+      // var view = this;
       //Add hook/handlers for different moments
-      this.behaviour.end(function (pos) {
+      this.behaviour.end(function (e) {
         // this.$el.removeClass('dragging');
         var layouts = this.model.get('layouts');
+        // view.el.style.top = top + 'px';
+        // view.el.style.left = left + 'px';
+        // view.el.style.position = 'absolute';
+
         if (!layouts.free) {
           layouts.free = {};
         }
-        layouts.free.x = pos.x;
-        layouts.free.y = pos.y;
+        layouts.free.x = e.x;
+        layouts.free.y = e.y;
 
         this.model.save('layouts', layouts);
       });
