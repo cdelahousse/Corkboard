@@ -1,4 +1,4 @@
-//Generic dragging behaviour for views
+//Generic tap to drag dragging behaviour for views. 
 define(['underscore'], function ( _ ) {
   'use strict';
 
@@ -34,6 +34,7 @@ define(['underscore'], function ( _ ) {
 
     //User defined hooks. Should be attached in view's code
     //Let the user of this behaviour have the context be the view
+    //'this' in the view that the behaviour is bound to
     start : function (handler) {
       this.userHandlers.start = _.bind(handler, this.view);
     },
@@ -83,17 +84,11 @@ define(['underscore'], function ( _ ) {
     this.removeListenersFromTarget(e);
     var dx = e.detail.deltaX;
     var dy = e.detail.deltaY;
-    var top = this.startOffsetY + dy;
-    var left = this.startOffsetX + dx;
     var transform = typeof e.target.style.transform === 'string' ?
       'transform' : 'webkitTransform';
 
     var view = this.view;
-    // view.el.style.top = top + 'px';
-    // view.el.style.left = left + 'px';
-    // view.el.style.position = 'absolute';
     view.el.style[ transform ] = '';
-
 
     view.el.classList.remove('dragging');
 
