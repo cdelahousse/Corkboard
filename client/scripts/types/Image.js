@@ -1,12 +1,10 @@
-// View for Notes of type Image
-define(['backbone'], function (Backbone) {
+// View for Notes of type Image. Extends core view type.
+define(['core/Type'], function (ViewType) {
   'use strict';
 
-  var Image = Backbone.View.extend({
+  var Image = ViewType.extend({
     initialize : function () {
-      this.listenTo(this.model, 'change', this.render);
-      this.listenTo(this.model, 'destroy', this.remove);
-      this.render();
+      this.__initialize();
     },
     render : function () {
       this.el.innerHTML = '<img src="' + this.model.get('data') + 

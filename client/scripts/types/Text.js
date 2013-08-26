@@ -1,12 +1,10 @@
-// View for Notes of type text
-define(['backbone'], function (Backbone) {
+// View for Notes of type text. Extends core view type.
+define(['core/Type'], function (NoteType) {
   'use strict';
 
-  var Text = Backbone.View.extend({
+  var Text = NoteType.extend({
     initialize : function () {
-      this.listenTo(this.model, 'change', this.render);
-      this.listenTo(this.model, 'destroy', this.remove);
-      this.render();
+      this.__initialize();
     },
     render : function () {
       var text = this.model.escape('data');
@@ -20,7 +18,7 @@ define(['backbone'], function (Backbone) {
       var text = this.$el.find('textarea').val();
       this.model.save('data', text);
 
-      // Rendereven if model hasn't changed
+      // Render even if model hasn't changed
       if (!this.model.hasChanged()) { this.render(); }
     }
   });
