@@ -1,5 +1,5 @@
 //Generic tap to drag dragging behaviour for views. 
-define(['underscore'], function ( _ ) {
+define(['underscore', 'gest'], function ( _ ) {
   'use strict';
 
   function DragView (view) {

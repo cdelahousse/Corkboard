@@ -30,7 +30,7 @@ require.config({
 });
 
 require(['core/App', 'collections/Notes', 'config', 'utils',
-    'sockets', 'gest', 'iobind'], function (AppView, Notes, config, utils, sockets) {
+    'sockets','iobind'], function (AppView, Notes, config, utils, sockets) {
   'use strict';
 
   utils.log('Initializing ...');
