@@ -122,8 +122,8 @@ from. It is inadvisable to modify these. `App.js` is the application interface.
 #### `./client/scripts/types/`
 
 All note content are instances of Note Types that inherit from
-`./[..]/core/Type.js` and are defined here. When defining new types, make sure
-to update `./[..]/config.js`.
+`./[..]/core/Type.js` and are defined here. To define new types, copy and modify
+`NewType.js` and update `./[..]/config.js`.
 
 #### `./client/scripts/layouts/[...]`
 

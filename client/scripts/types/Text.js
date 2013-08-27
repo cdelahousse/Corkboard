@@ -3,9 +3,6 @@ define(['core/Type'], function (NoteType) {
   'use strict';
 
   var Text = NoteType.extend({
-    initialize : function () {
-      this.__initialize();
-    },
     render : function () {
       var text = this.model.escape('data');
       this.el.innerHTML = text;

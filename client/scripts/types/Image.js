@@ -3,9 +3,6 @@ define(['core/Type'], function (ViewType) {
   'use strict';
 
   var Image = ViewType.extend({
-    initialize : function () {
-      this.__initialize();
-    },
     render : function () {
       this.el.innerHTML = '<img src="' + this.model.get('data') + '" />';
     },
