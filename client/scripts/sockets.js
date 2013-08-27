@@ -2,8 +2,8 @@
 define(['socketio', 'utils'], function (io, utils) {
   'use strict';
 
-  function init (url) {
-    var socket = io.connect(url);
+  function init () {
+    var socket = io.connect();
 
     socket.on('connect', function () {
       utils.log('Socket.io connected');

@@ -37,8 +37,11 @@ require(['backbone','Router', 'collections/Notes', 'config', 'utils',
   utils.log('Initializing ...');
 
   config.init();
-  var socket = sockets.init(config.url);
-  window.socket = socket; //XXX This should not be a global. Needed for ioBind
+  var socket = sockets.init();
+
+  //XXX This should not be a global, this should be passed into the collection.
+  //Needed for ioBind.
+  window.socket = socket;
 
   var notes = new Notes([],{
     url : config.apiUrl,
