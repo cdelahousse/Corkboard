@@ -172,6 +172,7 @@ All dynamically loaded templates are located at `./client/templates/`.
 
 ## Small items
 * Nested models on client (meta and layouts)
+* re-order nested note type css classes
 
 ## Nav
 * Add validation

@@ -7,8 +7,7 @@ define(['core/Type'], function (ViewType) {
       this.__initialize();
     },
     render : function () {
-      this.el.innerHTML = '<img src="' + this.model.get('data') + 
-        '" style="max-width:100%" />';
+      this.el.innerHTML = '<img src="' + this.model.get('data') + '" />';
     },
     edit : function () {
       var src = this.model.get('data');

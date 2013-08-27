@@ -1,5 +1,5 @@
 // Generic Parent Class View for Note Types
-define(['backbone'], function (Backbone) {
+define(['backbone', 'utils'], function (Backbone, utils) {
   'use strict';
 
   var Type = Backbone.View.extend({
@@ -8,6 +8,7 @@ define(['backbone'], function (Backbone) {
       if (! this.model instanceof Backbone.Model) {
         throw new Error('Note Type needs a model!');
       }
+      utils.loadCss('types/' + this.model.get('type') + '.css');
       this.listenTo(this.model, 'change', this.render);
       this.listenTo(this.model, 'destroy', this.remove);
       this.render();
