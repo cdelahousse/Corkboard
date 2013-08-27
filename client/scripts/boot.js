@@ -29,8 +29,9 @@ require.config({
   }
 });
 
-require(['core/App', 'collections/Notes', 'config', 'utils',
-    'sockets','iobind'], function (AppView, Notes, config, utils, sockets) {
+require(['backbone','Router', 'collections/Notes', 'config', 'utils',
+    'sockets','iobind'], function (Backbone, Router, Notes, config,
+      utils, sockets) {
   'use strict';
 
   utils.log('Initializing ...');
@@ -43,10 +44,8 @@ require(['core/App', 'collections/Notes', 'config', 'utils',
     url : config.apiUrl,
   });
 
-  new AppView({
-    el : '#app',
-    collection : notes
-  });
+  new Router({collection : notes});
+  Backbone.history.start();
 
   notes.fetch();
 });
