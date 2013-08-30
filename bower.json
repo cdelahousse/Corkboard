@@ -8,7 +8,8 @@
     "backbone": "~1.0.0",
     "requirejs-text": "~2.0.10",
     "gest": "http://134.117.49.79:6357/gest/head",
-    "socket.io-client": "~0.9.16"
+    "socket.io-client": "~0.9.16",
+    "backbone.iobind": "~0.4.6"
   },
   "devDependencies": {}
 }
