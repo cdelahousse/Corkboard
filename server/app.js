@@ -12,7 +12,7 @@ var app = express()
   , io = require('socket.io').listen(server)
   ;
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 60100);
 app.set('views', config.pathServer + '/views');
 app.use(express.favicon(config.pathClient + '/favicon.ico'));
 app.use(express.logger('tiny'));
