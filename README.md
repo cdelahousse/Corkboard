@@ -1,5 +1,5 @@
 # Corkboard
-Generic notes on a wall framework
+A generic card wall framework.
 
 ## What is Corkboard?
 Kan Ban boards, agile card walls, affinity diagrams, etc. are all
@@ -15,7 +15,7 @@ This is the abstract piece of information a user manipulates on screen.
 
 ### Note Type
 All note content is an instantiation of a Note Type. Types can be anything the
-developer defines, such as Text, Image, or Chart Types. 
+developer defines, such as Text, Image, or Chart Types. They must be defined.
 
 ### Note Bezel
 This is the interface that surrounds every individual note and allows a user to
@@ -62,11 +62,13 @@ Socket.io, ioBind, Mongoose, Grunt.js, and Require.js`
   `vim ./server/config.js`
   `vim ./client/scripts/config.js`
 
-5. Run the app
+6. Make sure MongoDB is running.
+
+7. Run the app
 
   `node server/app.js`
 
-6. Navigate your browser to `http://localhost:3000`
+8. Navigate your browser to `http://localhost:3000`
 
 ## Directory Structure
 
@@ -168,7 +170,7 @@ All dynamically loaded templates are located at `./client/templates/`.
 ## TODO
 ### Features
 * BB router
-* mobile edition
+* mobile edition (preview)
 
 ## Small items
 * Nested models on client (meta and layouts)
@@ -182,6 +184,10 @@ All dynamically loaded templates are located at `./client/templates/`.
 * Validation on server side
 * Clean db output ( eg: remove `__v`)
 * have proper ID's (not mongo `_id`)
+
+### Structural TODO
+* replace ioBind with home built solution
+* Have flat file or embedded replacement to MongoDB
 
 ### ioBind Bugs
 * make ioBind ACTUALLY a drop in replacement
