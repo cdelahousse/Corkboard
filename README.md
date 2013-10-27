@@ -172,11 +172,15 @@ All dynamically loaded templates are located at `./client/templates/`.
 * BB router
 * mobile edition (preview)
 
-## Small items
+### Interaction
+* Mouse interaction
+* Reordering notes (to front) on drag.
+
+### Small items
 * Nested models on client (meta and layouts)
 * re-order nested note type css classes
 
-## Nav
+### Nav
 * Add validation
 
 ### Annoyances
