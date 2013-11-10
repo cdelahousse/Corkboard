@@ -1,17 +1,25 @@
-//Generic tap to drag dragging behaviour for views. 
+//Generic touch dragging behaviour for views.
 define(['underscore', 'gest'], function ( _ ) {
   'use strict';
+
+  var CSSCLASSES = {
+      DRAGGING : 'dragging'
+  };
+
+  // Feature testing
+  var TRANSFORM = typeof document.documentElement.style.transform === 'string'
+    ?  'transform' : 'webkitTransform';
 
   function DragView (view) {
     this.view = view;
 
-    //Bind instance to event handlers so they can access instance state
+    //Bind instance to event handlers so they can access behaviour instance state
     var instance = this;
     this.boundHandlers = {
-      start : _.bind(start, instance),
-      move : _.bind(move , instance),
-      end: _.bind(end, instance),
-      cancel: _.bind(cancel, instance)
+      start : _.bind(onDragStart, instance),
+      move : _.bind(onDragMove, instance),
+      end: _.bind(onDragEnd, instance),
+      cancel: _.bind(onDragCancel, instance)
     };
 
     //Where user defined handlers are stored. Will be defined in view;
@@ -51,56 +59,53 @@ define(['underscore', 'gest'], function ( _ ) {
   };
 
   //These are behaviour related handlers, not user handlers.
-  //These need a fixed receiver
-  function start (e) {
+  //These need a fixed receiver. See above
+  function onDragStart(e) {
     var target = e.target;
 
-    this.startOffsetX = this.view.el.getBoundingClientRect().left;
-    this.startOffsetY = this.view.el.getBoundingClientRect().top;
+    var boundingRect = this.view.el.getBoundingClientRect();
+    this.startOffsetX = boundingRect.left;
+    this.startOffsetY = boundingRect.top;
 
     target.addEventListener('drag-move', this.boundHandlers.move);
     target.addEventListener('drag-end', this.boundHandlers.end);
     target.addEventListener('drag-cancel', this.boundHandlers.cancel);
 
-    this.view.el.classList.add('dragging');
+    this.view.el.classList.add(CSSCLASSES.DRAGGING);
 
     this.userHandlers.start && this.userHandlers.start(e);
   }
-  function move (e) {
 
-    var transform = typeof e.target.style.transform === 'string' ?
-      'transform' : 'webkitTransform';
+  function onDragMove(e) {
 
     var dx = e.detail.deltaX;
     var dy = e.detail.deltaY;
-    this.view.el.style[ transform ] =
+    this.view.el.style[ TRANSFORM ] =
       'translate(' + dx + 'px, ' + dy + 'px)';
 
-    this.view.el.classList.add('dragging');
+    this.view.el.classList.add(CSSCLASSES.DRAGGING);
 
     this.userHandlers.move && this.userHandlers.move(e);
   }
-  function end(e) {
+
+  function onDragEnd(e) {
     this.removeListenersFromTarget(e);
     var dx = e.detail.deltaX;
     var dy = e.detail.deltaY;
-    var transform = typeof e.target.style.transform === 'string' ?
-      'transform' : 'webkitTransform';
 
     var view = this.view;
-    view.el.style[ transform ] = '';
+    view.el.style[ TRANSFORM ] = '';
 
-    view.el.classList.remove('dragging');
+    view.el.classList.remove(CSSCLASSES.DRAGGING);
 
     this.userHandlers.end && this.userHandlers.end(e);
   }
-  function cancel(e) {
-    this.removeListenersFromTarget(e);
-    var transform = typeof e.target.style.transform === 'string' ?
-      'transform' : 'webkitTransform';
-    this.view.el.style[ transform ] = '';
 
-    this.view.el.classList.remove('dragging');
+  function onDragCancel(e) {
+    this.removeListenersFromTarget(e);
+    this.view.el.style[ TRANSFORM ] = '';
+
+    this.view.el.classList.remove(CSSCLASSES.DRAGGING);
 
     this.userHandlers.cancel && this.userHandlers.cancel(e);
   }
