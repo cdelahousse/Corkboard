@@ -9,6 +9,7 @@ define(['behaviours/Drag', 'backbone' ], function (DragBehaviour, Backbone) {
 
       this.wrappedView = this.options.view;
       this.model = this.options.view.model;
+      this.layout = this.options.layout;
 
       // this.listenTo(this.model, 'destroy', this.remove);
       this.listenTo(this.model, 'change:layouts', this.setLocation);
@@ -25,6 +26,9 @@ define(['behaviours/Drag', 'backbone' ], function (DragBehaviour, Backbone) {
       // var view = this;
       //Add hook/handlers for different moments
       this.behaviour.end(function (e) {
+        this.el.style.zIndex = this.layout.zIndexOfTopElement++;
+        this.el.classList.remove('note-wrapper-free-active');
+
         var dx = e.deltaX;
         var dy = e.deltaY;
 

@@ -12,13 +12,18 @@ define(['layouts/free/Wrapper', 'utils'], function (Wrapper, utils) {
     parentElem.appendChild(this.layoutArea);
 
     utils.loadCss('layouts/free.css');
+
+    this.zIndexOfTopElement = 100;
   };
 
   FreeLayout.prototype = {
     // Add single view to layout
     add : function (view) {
       //Wrap in in layout wrapper before adding to layout
-      var wrapped = new Wrapper({ view : view });
+      var wrapped = new Wrapper({
+        view : view,
+        layout: this
+      });
       var elem = wrapped.el;
       this.layoutArea.appendChild(elem);
     },
