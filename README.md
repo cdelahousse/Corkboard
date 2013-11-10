@@ -7,8 +7,16 @@ specific implementations of generic card walls. This framework aims to simplify 
 contruction of multi-user, multi-touch card wall based applications. It mostly
 consists of way to structure code and offers pre-built modules.
 
+## Installation
+
+Refer to `./INSTALL.md`.
+
+## Near Term Roadmap
+
+Refer to `./TODO.md`.
+
 ## Basics
-The documentation will use the following terms.
+The following concepts are used in Corkboard.
 
 ### Note
 This is the abstract piece of information a user manipulates on screen.
@@ -38,37 +46,6 @@ composite of these workspaces is called a Wall.
 ### App View
 The high level application interface.
 
-## Dependencies
-
-To get up and running, you'll need some type of Unix like OS with MongoDB,
-node.js, Bower and NPM. The remaining server and client side dependencies will
-be fulfilled through Bower and NPM. They include Backbone.js, Express.js,
-Socket.io, ioBind, Mongoose, Grunt.js, and Require.js`
-
-## Installation
-1. Install node.js, MongoDB, node.js, Bower and NPM.
-2. Clone this project
-3. Navigate to the directory
-
-    `cd corkboard`
-
-4. Download dependencies
-
-    `npm install`
-    `bower install`
-
-5. Have a look at the configuration files
-
-  `vim ./server/config.js`
-  `vim ./client/scripts/config.js`
-
-6. Make sure MongoDB is running.
-
-7. Run the app
-
-  `node server/app.js`
-
-8. Navigate your browser to `http://localhost:3000`
 
 ## Directory Structure
 
@@ -166,40 +143,4 @@ The following are automatically loaded with their associated views.
 ### Templates
 
 All dynamically loaded templates are located at `./client/templates/`.
-
-## TODO
-### Features
-* BB router
-* mobile edition (preview)
-
-### Interaction
-* Mouse interaction
-* Reordering notes (to front) on drag.
-
-### Small items
-* Nested models on client (meta and layouts)
-* re-order nested note type css classes
-
-### Nav
-* Add validation
-
-### Annoyances
-* Validation on client side
-* Validation on server side
-* Clean db output ( eg: remove `__v`)
-* have proper ID's (not mongo `_id`)
-
-### Structural TODO
-* replace ioBind with home built solution
-* Have flat file or embedded replacement to MongoDB
-
-### ioBind Bugs
-* make ioBind ACTUALLY a drop in replacement
-* remove update event from model
-* inherit model rootURL from collection
-* remove window.socket dependency
-* urlRoot on model should be able to have leading slash
-* model socket should inherit from collection, not window.socket
-* I can't add the instance of the model directly to a collection without the
-  doubling bug.
 
