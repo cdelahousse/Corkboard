@@ -3,10 +3,13 @@
 ### Features
 * BB router
 * mobile edition (preview)
+* update notes using cell phone
 
 ### Interaction
 * Mouse interaction
 * Reordering notes (to front) on drag.
+* persist relative orderings to DB
+* modulus the zIndexes
 * review method (event) interface for Behaviours
 
 ### Small items
