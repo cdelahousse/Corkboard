@@ -25,10 +25,11 @@ define(['behaviours/Drag', 'backbone' ], function (DragBehaviour, Backbone) {
       // var view = this;
       //Add hook/handlers for different moments
       this.behaviour.end(function (e) {
-        var dx = e.detail.deltaX;
-        var dy = e.detail.deltaY;
-        var top = this.behaviour.startOffsetY + dy;
-        var left = this.behaviour.startOffsetX + dx;
+        var dx = e.deltaX;
+        var dy = e.deltaY;
+
+        var top = e.startOffsetY + dy;
+        var left = e.startOffsetX + dx;
         this.el.style.top = top + 'px';
         this.el.style.left = left + 'px';
         this.el.style.position = 'absolute';

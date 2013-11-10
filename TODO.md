@@ -7,6 +7,7 @@
 ### Interaction
 * Mouse interaction
 * Reordering notes (to front) on drag.
+* review method (event) interface for Behaviours
 
 ### Small items
 * Nested models on client (meta and layouts)
@@ -22,6 +23,7 @@
 * have proper ID's (not mongo `_id`)
 
 ### Structural TODO
+* Use backbone.Marionette
 * replace ioBind with home built solution
 * Decouple DB from model representation
 * Have flat file or embedded replacement to MongoDB. 
