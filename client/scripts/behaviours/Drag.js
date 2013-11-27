@@ -41,7 +41,7 @@ define(['underscore', 'gest'], function ( _ ) {
       e.target.removeEventListener('drag-end', this.boundHandlers.end);
       e.target.removeEventListener('drag-cancel', this.boundHandlers.cancel);
 
-      e.target.removeEventListener('mousemove', this.boundHandlers.move);
+      document.removeEventListener('mousemove', this.boundHandlers.move);
       e.target.removeEventListener('mouseup', this.boundHandlers.end);
     },
 
@@ -85,7 +85,7 @@ define(['underscore', 'gest'], function ( _ ) {
     target.addEventListener('drag-end', this.boundHandlers.end);
     target.addEventListener('drag-cancel', this.boundHandlers.cancel);
 
-    target.addEventListener('mousemove', this.boundHandlers.move);
+    document.addEventListener('mousemove', this.boundHandlers.move);
     target.addEventListener('mouseup', this.boundHandlers.end);
 
     this.view.el.classList.add(CSSCLASSES.DRAGGING);
