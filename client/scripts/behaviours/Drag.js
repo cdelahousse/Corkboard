@@ -3,7 +3,7 @@ define(['underscore', 'gest'], function ( _ ) {
   'use strict';
 
   var CSSCLASSES = {
-      DRAGGING : 'dragging'
+    DRAGGING : 'dragging'
   };
 
   // Feature testing
@@ -66,6 +66,8 @@ define(['underscore', 'gest'], function ( _ ) {
 
   //These are behaviour related handlers, not user handlers.
   //These need a fixed receiver. See above
+  //
+  //jshint validthis: true
   function onDragStart(e) {
     var target = e.target;
 
@@ -74,11 +76,11 @@ define(['underscore', 'gest'], function ( _ ) {
     this.startOffsetY = viewBoundingRect.top;
 
     if  (this.detail) {
-        this.detail.startX = e.clientX;
-        this.detail.startY = e.clientY;
+      this.detail.startX = e.clientX;
+      this.detail.startY = e.clientY;
     } else {
-        this.startX = e.clientX;
-        this.startY = e.clientY;
+      this.startX = e.clientX;
+      this.startY = e.clientY;
     }
 
     target.addEventListener('drag-move', this.boundHandlers.move);
@@ -132,33 +134,33 @@ define(['underscore', 'gest'], function ( _ ) {
   }
 
   function prepareEventObject (e, receiver) {
-      var deltas = getDeltasFromEvent(e, receiver);
-      return {
-        deltaX: deltas.dx,
-        deltaY: deltas.dy,
-        startX: receiver.startX,
-        startY: receiver.startY,
+    var deltas = getDeltasFromEvent(e, receiver);
+    return {
+      deltaX: deltas.dx,
+      deltaY: deltas.dy,
+      startX: receiver.startX,
+      startY: receiver.startY,
 
-        //TODO: find better name
-        startOffsetX: receiver.startOffsetX,
-        startOffsetY: receiver.startOffsetY
-      };
+      //TODO: find better name
+      startOffsetX: receiver.startOffsetX,
+      startOffsetY: receiver.startOffsetY
+    };
   }
 
   function getDeltasFromEvent(e, receiver) {
-      var dx, dy;
-      if (e instanceof CustomEvent) {
-          dx = e.detail.deltaX;
-          dy = e.detail.deltaY;
-      } else {
-          dx = e.clientX - receiver.startX;
-          dy = e.clientY - receiver.startY;
-      }
+    var dx, dy;
+    if (e instanceof CustomEvent) {
+      dx = e.detail.deltaX;
+      dy = e.detail.deltaY;
+    } else {
+      dx = e.clientX - receiver.startX;
+      dy = e.clientY - receiver.startY;
+    }
 
-      return {
-        dx : dx,
-        dy : dy
-      };
+    return {
+      dx : dx,
+      dy : dy
+    };
   }
 
   return DragView;
