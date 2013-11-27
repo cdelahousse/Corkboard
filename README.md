@@ -7,6 +7,12 @@ specific implementations of generic card walls. This framework aims to simplify 
 contruction of multi-user, multi-touch card wall based applications. It mostly
 consists of way to structure code and offers pre-built modules.
 
+## Starting up
+
+Use Grunt to start up the server and get Corkboard running
+
+    grunt server
+
 ## Installation
 
 Refer to `./INSTALL.md`.
