@@ -44,6 +44,14 @@ define(['underscore', 'gest'], function ( _ ) {
       document.removeEventListener('mousemove', this.boundHandlers.move);
       e.target.removeEventListener('mouseup', this.boundHandlers.end);
     },
+    _addDragStartStateToInstance: function (e) {
+      this.pointerStartX = isGestEvent(e) ? e.detail.startX : e.clientX;
+      this.pointerStartY = isGestEvent(e) ? e.detail.startY : e.clientY;
+
+      var viewBoundingRect = this.view.el.getBoundingClientRect();
+      this.startOffsetX = viewBoundingRect.left;
+      this.startOffsetY = viewBoundingRect.top;
+    },
 
     //User defined hooks. Should be attached in view's code
     //Let the user of this behaviour have the context be the view
@@ -63,7 +71,6 @@ define(['underscore', 'gest'], function ( _ ) {
     }
   };
 
-
   //These are behaviour related handlers, not user handlers.
   //These need a fixed receiver. See above
   //
@@ -71,17 +78,7 @@ define(['underscore', 'gest'], function ( _ ) {
   function onDragStart(e) {
     var target = e.target;
 
-    var viewBoundingRect = this.view.el.getBoundingClientRect();
-    this.startOffsetX = viewBoundingRect.left;
-    this.startOffsetY = viewBoundingRect.top;
-
-    if  (this.detail) {
-      this.detail.startX = e.clientX;
-      this.detail.startY = e.clientY;
-    } else {
-      this.startX = e.clientX;
-      this.startY = e.clientY;
-    }
+    this._addDragStartStateToInstance(e);
 
     target.addEventListener('drag-move', this.boundHandlers.move);
     target.addEventListener('drag-end', this.boundHandlers.end);
@@ -95,6 +92,7 @@ define(['underscore', 'gest'], function ( _ ) {
     this.userHandlers.start && this.userHandlers.start(/* e */);
   }
 
+  //TODO: use requestAnimation Frame
   function onDragMove(e) {
 
     e.preventDefault();
@@ -133,34 +131,31 @@ define(['underscore', 'gest'], function ( _ ) {
     this.userHandlers.cancel && this.userHandlers.cancel(newEvent);
   }
 
-  function prepareEventObject (e, receiver) {
-    var deltas = getDeltasFromEvent(e, receiver);
+  function prepareEventObject (e, dragInstance) {
+    var deltas = getDeltasFromEvent(e, dragInstance);
     return {
-      deltaX: deltas.dx,
-      deltaY: deltas.dy,
-      startX: receiver.startX,
-      startY: receiver.startY,
+      deltaX: deltas.deltaX,
+      deltaY: deltas.deltaY,
+      pointerStartX: dragInstance.pointerStartX,
+      pointerStartY: dragInstance.pointerStartY,
 
-      //TODO: find better name
-      startOffsetX: receiver.startOffsetX,
-      startOffsetY: receiver.startOffsetY
+      //Initial View position
+      //TODO: find better name. startNoteX? StartX
+      startOffsetX: dragInstance.startOffsetX,
+      startOffsetY: dragInstance.startOffsetY
     };
   }
 
-  function getDeltasFromEvent(e, receiver) {
-    var dx, dy;
-    if (e instanceof CustomEvent) {
-      dx = e.detail.deltaX;
-      dy = e.detail.deltaY;
-    } else {
-      dx = e.clientX - receiver.startX;
-      dy = e.clientY - receiver.startY;
-    }
-
+  function getDeltasFromEvent(e, dragInstance) {
     return {
-      dx : dx,
-      dy : dy
+      deltaX : isGestEvent(e) ? e.detail.deltaX : e.clientX - dragInstance.pointerStartX,
+      deltaY : isGestEvent(e) ? e.detail.deltaY : e.clientY - dragInstance.pointerStartY
     };
+  }
+
+  //TODO: Make feature req so that all gest events be instances of GestEvent
+  function isGestEvent(e) {
+    return e instanceof CustomEvent;
   }
 
   return DragView;
