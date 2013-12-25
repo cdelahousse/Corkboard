@@ -15,7 +15,7 @@ define(['underscore', 'gest'], function ( _ ) {
 
     //Bind instance to event handlers so they can access behaviour instance state
     var instance = this;
-    this.boundHandlers = {
+    this._boundHandlers = {
       start : _.bind(onDragStart, instance),
       move : _.bind(onDragMove, instance),
       end: _.bind(onDragEnd, instance),
@@ -23,26 +23,26 @@ define(['underscore', 'gest'], function ( _ ) {
     };
 
     //Where user defined handlers are stored. Will be defined in view;
-    this.userHandlers = {};
-    this.addListeners();
+    this._userHandlers = {};
+    this._addListeners();
   }
 
   DragView.prototype = {
-    addListeners : function () {
-      this.view.el.addEventListener('drag-start', this.boundHandlers.start);
-      this.view.el.addEventListener('mousedown', this.boundHandlers.start);
+    _addListeners : function () {
+      this.view.el.addEventListener('drag-start', this._boundHandlers.start);
+      this.view.el.addEventListener('mousedown', this._boundHandlers.start);
     },
-    removeListeners : function () {
-      this.view.el.removeEventListener('drag-start', this.boundHandlers.start);
-      this.view.el.removeEventListener('mousedown', this.boundHandlers.start);
+    _removeListeners : function () {
+      this.view.el.removeEventListener('drag-start', this._boundHandlers.start);
+      this.view.el.removeEventListener('mousedown', this._boundHandlers.start);
     },
-    removeListenersFromTarget : function (e) {
-      e.target.removeEventListener('drag-move', this.boundHandlers.move);
-      e.target.removeEventListener('drag-end', this.boundHandlers.end);
-      e.target.removeEventListener('drag-cancel', this.boundHandlers.cancel);
+    _removeEventListenersFromTarget : function (e) {
+      e.target.removeEventListener('drag-move', this._boundHandlers.move);
+      e.target.removeEventListener('drag-end', this._boundHandlers.end);
+      e.target.removeEventListener('drag-cancel', this._boundHandlers.cancel);
 
-      document.removeEventListener('mousemove', this.boundHandlers.move);
-      e.target.removeEventListener('mouseup', this.boundHandlers.end);
+      document.removeEventListener('mousemove', this._boundHandlers.move);
+      e.target.removeEventListener('mouseup', this._boundHandlers.end);
     },
     _addDragStartStateToInstance: function (e) {
       this.pointerStartX = isGestEvent(e) ? e.detail.startX : e.clientX;
@@ -57,17 +57,17 @@ define(['underscore', 'gest'], function ( _ ) {
     //Let the user of this behaviour have the context be the view
     //'this' in the view that the behaviour is bound to
     start : function (handler) {
-      this.userHandlers.start = _.bind(handler, this.view);
+      this._userHandlers.start = _.bind(handler, this.view);
     },
     move : function (handler) {
-      this.userHandlers.move = _.bind(handler, this.view);
+      this._userHandlers.move = _.bind(handler, this.view);
 
     },
     end: function (handler) {
-      this.userHandlers.end = _.bind(handler, this.view);
+      this._userHandlers.end = _.bind(handler, this.view);
     },
     cancel : function (handler) {
-      this.userHandlers.cancel = _.bind(handler, this.view);
+      this._userHandlers.cancel = _.bind(handler, this.view);
     }
   };
 
@@ -80,16 +80,16 @@ define(['underscore', 'gest'], function ( _ ) {
 
     this._addDragStartStateToInstance(e);
 
-    target.addEventListener('drag-move', this.boundHandlers.move);
-    target.addEventListener('drag-end', this.boundHandlers.end);
-    target.addEventListener('drag-cancel', this.boundHandlers.cancel);
+    target.addEventListener('drag-move', this._boundHandlers.move);
+    target.addEventListener('drag-end', this._boundHandlers.end);
+    target.addEventListener('drag-cancel', this._boundHandlers.cancel);
 
-    document.addEventListener('mousemove', this.boundHandlers.move);
-    target.addEventListener('mouseup', this.boundHandlers.end);
+    document.addEventListener('mousemove', this._boundHandlers.move);
+    target.addEventListener('mouseup', this._boundHandlers.end);
 
     this.view.el.classList.add(CSSCLASSES.DRAGGING);
 
-    this.userHandlers.start && this.userHandlers.start(/* e */);
+    this._userHandlers.start && this._userHandlers.start(/* e */);
   }
 
   //TODO: use requestAnimation Frame
@@ -106,29 +106,29 @@ define(['underscore', 'gest'], function ( _ ) {
 
     this.view.el.classList.add(CSSCLASSES.DRAGGING);
 
-    this.userHandlers.move && this.userHandlers.move(newEvent);
+    this._userHandlers.move && this._userHandlers.move(newEvent);
   }
 
   function onDragEnd(e) {
 
-    this.removeListenersFromTarget(e);
+    this._removeEventListenersFromTarget(e);
     this.view.el.style[ TRANSFORM ] = '';
     this.view.el.classList.remove(CSSCLASSES.DRAGGING);
 
     var newEvent = prepareEventObject(e, this);
-    this.userHandlers.end && this.userHandlers.end(newEvent);
+    this._userHandlers.end && this._userHandlers.end(newEvent);
   }
 
   function onDragCancel(e) {
 
     var newEvent = prepareEventObject(e, this);
-    this.removeListenersFromTarget(e);
+    this._removeEventListenersFromTarget(e);
 
     this.view.el.style[ TRANSFORM ] = '';
 
     this.view.el.classList.remove(CSSCLASSES.DRAGGING);
 
-    this.userHandlers.cancel && this.userHandlers.cancel(newEvent);
+    this._userHandlers.cancel && this._userHandlers.cancel(newEvent);
   }
 
   function prepareEventObject (e, dragInstance) {
