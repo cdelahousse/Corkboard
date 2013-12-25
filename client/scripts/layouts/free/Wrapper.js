@@ -17,10 +17,7 @@ define(['behaviours/Drag', 'backbone' ], function (DragBehaviour, Backbone) {
       //Create wrap note
       this.el.appendChild(this.wrappedView.el);
 
-      //Set initial location
       this.setLocation();
-
-      //Add drag behaviour
       this.behaviour = new DragBehaviour(this);
 
       // var view = this;
@@ -29,11 +26,8 @@ define(['behaviours/Drag', 'backbone' ], function (DragBehaviour, Backbone) {
         this.el.style.zIndex = this.layout.zIndexOfTopElement++;
         this.el.classList.remove('note-wrapper-free-active');
 
-        var dx = e.deltaX;
-        var dy = e.deltaY;
-
-        var top = e.startOffsetY + dy;
-        var left = e.startOffsetX + dx;
+        var top = e.startY + e.deltaY;
+        var left = e.startX + e.deltaX;
         this.el.style.top = top + 'px';
         this.el.style.left = left + 'px';
         this.el.style.position = 'absolute';

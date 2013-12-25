@@ -49,8 +49,8 @@ define(['underscore', 'gest'], function ( _ ) {
       this.pointerStartY = isGestEvent(e) ? e.detail.startY : e.clientY;
 
       var viewBoundingRect = this.view.el.getBoundingClientRect();
-      this.startOffsetX = viewBoundingRect.left;
-      this.startOffsetY = viewBoundingRect.top;
+      this.startX = viewBoundingRect.left;
+      this.startY = viewBoundingRect.top;
     },
 
     //User defined hooks. Should be attached in view's code
@@ -132,17 +132,15 @@ define(['underscore', 'gest'], function ( _ ) {
   }
 
   function prepareEventObject (e, dragInstance) {
+    // All of these are relative to the drag instance's view element
     var deltas = getDeltasFromEvent(e, dragInstance);
     return {
       deltaX: deltas.deltaX,
       deltaY: deltas.deltaY,
       pointerStartX: dragInstance.pointerStartX,
       pointerStartY: dragInstance.pointerStartY,
-
-      //Initial View position
-      //TODO: find better name. startNoteX? StartX
-      startOffsetX: dragInstance.startOffsetX,
-      startOffsetY: dragInstance.startOffsetY
+      startX: dragInstance.startX,
+      startY: dragInstance.startY
     };
   }
 
