@@ -1,62 +1,90 @@
-define(['layouts/column/Wrapper', 'utils'], function (Wrapper, utils) {
+define(['underscore', 'layouts/column/Wrapper', 'utils'], function ( _ , Wrapper, utils) {
   'use strict';
 
+  var DEFAULTNUMCOLUMNS = 6;
+  var LAYOUTCLASSNAMES = 'layout layout-column';
+  var COLUMNCLASSNAME = 'column';
   var ColumnLayout = function (parentElem, numberOfColumns) {
 
-    //Default to six columns
-    this.numberOfColumns = numberOfColumns || 6;
+    this.numberOfColumns = numberOfColumns || DEFAULTNUMCOLUMNS;
 
-    utils.loadCss('layouts/column.css');
-
-    //Clear whatever's there
-    parentElem.innerHTML = '';
-
-    //Prepare div where layout will reside
-    var layoutArea = this.layoutArea = document.createElement('div');
-    layoutArea.className = 'layout layout-column';
-
-    //Create column divs, add to layout area
+    this.el = parentElem;
     this.columns = [];
-    for (var col = 0; col < this.numberOfColumns; col++) {
-      var elem = document.createElement('div');
-      elem.className = 'column col' + this.numberOfColumns;
-      elem.id = 'column' + col;
-      layoutArea.appendChild(elem);
-      this.columns[col] =  {
-        elem : elem
-      };
-    }
 
-    parentElem.appendChild(layoutArea);
+    this._init();
 
   };
 
   ColumnLayout.prototype = {
+    _init: function () {
+
+      utils.loadCss('layouts/column.css');
+
+      this.layoutArea = this._buildLayoutArea();
+      this.el.innerHTML = ''; //Clear whatever's there
+      this.el.appendChild(this.layoutArea);
+
+    },
+    _buildLayoutArea: function () {
+      var layoutArea = document.createElement('div');
+      layoutArea.classList.add(LAYOUTCLASSNAMES);
+      var columns = this._buildColumns(this.numberOfColumns);
+      layoutArea.appendChild(columns);
+      return layoutArea;
+    },
+    _buildColumns: function (numberOfColumns) {
+      var frag = document.createDocumentFragment();
+      for (var col = 0; col < numberOfColumns; col++) {
+        var elem = this._buildColumn(col);
+        frag.appendChild(elem);
+
+        //XXX - DO I NEED THIS?
+        this.columns[col] =  {
+          elem : elem
+        };
+      }
+      return frag;
+    },
+    _buildColumn: function (columnNumber) {
+      var elem = document.createElement('div');
+      elem.classList.add(COLUMNCLASSNAME);
+      elem.classList.add(COLUMNCLASSNAME + columnNumber);
+      elem.classList.add('col' + this.numberOfColumns); //XXX - May be able to remove this. Change CSS file.
+      return elem;
+    },
+
     // Add single view to layout
     add : function (view) {
-      //Wrap in in layout wrapper before adding to layout
-      var wrapped = new Wrapper({
-        view : view,
-        layout : this
-      });
-
+      var wrappedView = this._wrapView(view);
       var layouts = view.model.get('layouts');
-      var elem = wrapped.el;
+      var colNum = Number(layouts.column);
+      this._addToColumns(wrappedView, colNum);
 
-      //Add to specific column if possible, if not, add to first column
-      if ('column' in layouts && layouts.column > -1 &&
-          this.numberOfColumns > layouts.column) {
-        var colNum = Number(layouts.column);
-        var col = document.getElementById('column'+colNum);
-        col.appendChild(elem);
+    },
+    _wrapView: function (view) {
+      if (view instanceof Wrapper) {
+        return view;
       } else {
-        var col0 = document.getElementById('column0');
-        col0.appendChild(elem);
+        return new Wrapper({
+          view : view,
+          layout : this
+        });
       }
+    },
+    _addToColumns: function (wrappedView, columnNumber) {
+      //if possible, Add to specific column, if not, add to first column
+      var isAddable = this._isAddableToColumns(columnNumber);
+      var query = '.' + COLUMNCLASSNAME + (isAddable ? columnNumber : 0);
+      var elem = wrappedView.el;
+      var col = this.layoutArea.querySelector(query);
+      col.appendChild(elem);
+    },
+    _isAddableToColumns: function (columnNumber) {
+      return _.isFinite(columnNumber) && columnNumber > -1 && this.numberOfColumns > columnNumber;
     },
 
     // Remove single view from layout
-    remove : function (view) { 
+    remove : function (view) {
       view.el.parentNode.removeChild(view.el);
     },
   };

@@ -55,7 +55,7 @@ define(['behaviours/Drag', 'backbone'], function (DragBehaviour, Backbone) {
     var len = columns.length;
     for (var col = 0; col < len; col++) {
       var rect = columns[col].elem.getBoundingClientRect();
-      if (e.detail.pageX >= rect.left && e.detail.pageX <= rect.right) {
+      if (e.pointerPageX >= rect.left && e.pointerPageX <= rect.right) {
         return col;
       }
     }
