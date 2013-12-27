@@ -11,7 +11,7 @@ define(['underscore', 'gest'], function ( _ ) {
     ?  'transform' : 'webkitTransform';
 
   function DragView (view) {
-    this.view = view;
+    this._view = view;
 
     //Bind instance to event handlers so they can access behaviour instance state
     var instance = this;
@@ -29,12 +29,20 @@ define(['underscore', 'gest'], function ( _ ) {
 
   DragView.prototype = {
     _addListeners : function () {
-      this.view.el.addEventListener('drag-start', this._boundHandlers.start);
-      this.view.el.addEventListener('mousedown', this._boundHandlers.start);
+      this._view.el.addEventListener('drag-start', this._boundHandlers.start);
+      this._view.el.addEventListener('mousedown', this._boundHandlers.start);
     },
     _removeListeners : function () {
-      this.view.el.removeEventListener('drag-start', this._boundHandlers.start);
-      this.view.el.removeEventListener('mousedown', this._boundHandlers.start);
+      this._view.el.removeEventListener('drag-start', this._boundHandlers.start);
+      this._view.el.removeEventListener('mousedown', this._boundHandlers.start);
+    },
+    _addEventListenersToTarget: function (e) {
+      e.target.addEventListener('drag-move', this._boundHandlers.move);
+      e.target.addEventListener('drag-end', this._boundHandlers.end);
+      e.target.addEventListener('drag-cancel', this._boundHandlers.cancel);
+
+      document.addEventListener('mousemove', this._boundHandlers.move);
+      e.target.addEventListener('mouseup', this._boundHandlers.end);
     },
     _removeEventListenersFromTarget : function (e) {
       e.target.removeEventListener('drag-move', this._boundHandlers.move);
@@ -48,7 +56,7 @@ define(['underscore', 'gest'], function ( _ ) {
       this.pointerStartX = isGestEvent(e) ? e.detail.startX : e.clientX;
       this.pointerStartY = isGestEvent(e) ? e.detail.startY : e.clientY;
 
-      var viewBoundingRect = this.view.el.getBoundingClientRect();
+      var viewBoundingRect = this._view.el.getBoundingClientRect();
       this.startX = viewBoundingRect.left;
       this.startY = viewBoundingRect.top;
     },
@@ -57,17 +65,17 @@ define(['underscore', 'gest'], function ( _ ) {
     //Let the user of this behaviour have the context be the view
     //'this' in the view that the behaviour is bound to
     start : function (handler) {
-      this._userHandlers.start = _.bind(handler, this.view);
+      this._userHandlers.start = _.bind(handler, this._view);
     },
     move : function (handler) {
-      this._userHandlers.move = _.bind(handler, this.view);
+      this._userHandlers.move = _.bind(handler, this._view);
 
     },
     end: function (handler) {
-      this._userHandlers.end = _.bind(handler, this.view);
+      this._userHandlers.end = _.bind(handler, this._view);
     },
     cancel : function (handler) {
-      this._userHandlers.cancel = _.bind(handler, this.view);
+      this._userHandlers.cancel = _.bind(handler, this._view);
     }
   };
 
@@ -76,18 +84,11 @@ define(['underscore', 'gest'], function ( _ ) {
   //
   //jshint validthis: true
   function onDragStart(e) {
-    var target = e.target;
 
     this._addDragStartStateToInstance(e);
+    this._addEventListenersToTarget(e);
 
-    target.addEventListener('drag-move', this._boundHandlers.move);
-    target.addEventListener('drag-end', this._boundHandlers.end);
-    target.addEventListener('drag-cancel', this._boundHandlers.cancel);
-
-    document.addEventListener('mousemove', this._boundHandlers.move);
-    target.addEventListener('mouseup', this._boundHandlers.end);
-
-    this.view.el.classList.add(CSSCLASSES.DRAGGING);
+    this._view.el.classList.add(CSSCLASSES.DRAGGING);
 
     this._userHandlers.start && this._userHandlers.start(/* e */);
   }
@@ -101,10 +102,10 @@ define(['underscore', 'gest'], function ( _ ) {
     var dx = newEvent.deltaX;
     var dy = newEvent.deltaY;
 
-    this.view.el.style[ TRANSFORM ] =
+    this._view.el.style[ TRANSFORM ] =
       'translate(' + dx + 'px, ' + dy + 'px)';
 
-    this.view.el.classList.add(CSSCLASSES.DRAGGING);
+    this._view.el.classList.add(CSSCLASSES.DRAGGING);
 
     this._userHandlers.move && this._userHandlers.move(newEvent);
   }
@@ -112,8 +113,8 @@ define(['underscore', 'gest'], function ( _ ) {
   function onDragEnd(e) {
 
     this._removeEventListenersFromTarget(e);
-    this.view.el.style[ TRANSFORM ] = '';
-    this.view.el.classList.remove(CSSCLASSES.DRAGGING);
+    this._view.el.style[ TRANSFORM ] = '';
+    this._view.el.classList.remove(CSSCLASSES.DRAGGING);
 
     var newEvent = prepareEventObject(e, this);
     this._userHandlers.end && this._userHandlers.end(newEvent);
@@ -124,9 +125,9 @@ define(['underscore', 'gest'], function ( _ ) {
     var newEvent = prepareEventObject(e, this);
     this._removeEventListenersFromTarget(e);
 
-    this.view.el.style[ TRANSFORM ] = '';
+    this._view.el.style[ TRANSFORM ] = '';
 
-    this.view.el.classList.remove(CSSCLASSES.DRAGGING);
+    this._view.el.classList.remove(CSSCLASSES.DRAGGING);
 
     this._userHandlers.cancel && this._userHandlers.cancel(newEvent);
   }
@@ -146,8 +147,8 @@ define(['underscore', 'gest'], function ( _ ) {
 
   function getDeltasFromEvent(e, dragInstance) {
     return {
-      deltaX : isGestEvent(e) ? e.detail.deltaX : e.clientX - dragInstance.pointerStartX,
-      deltaY : isGestEvent(e) ? e.detail.deltaY : e.clientY - dragInstance.pointerStartY
+      deltaX : isGestEvent(e) ? e.detail.deltaX : e.pageX - dragInstance.pointerStartX,
+      deltaY : isGestEvent(e) ? e.detail.deltaY : e.pageY - dragInstance.pointerStartY
     };
   }
 
@@ -157,5 +158,4 @@ define(['underscore', 'gest'], function ( _ ) {
   }
 
   return DragView;
-
 });
