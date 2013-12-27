@@ -140,6 +140,8 @@ define(['underscore', 'gest'], function ( _ ) {
       deltaY: deltas.deltaY,
       pointerStartX: dragInstance.pointerStartX,
       pointerStartY: dragInstance.pointerStartY,
+      pointerPageX: isGestEvent(e) ? e.detail.pageX : e.pageX,
+      pointerPageY: isGestEvent(e) ? e.detail.pageY : e.pageY,
       startX: dragInstance.startX,
       startY: dragInstance.startY
     };
