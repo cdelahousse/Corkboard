@@ -32,10 +32,10 @@
   clear: both;
 }
 
-.layout-column > .col2 { width: 50%; } 
-.layout-column > .col3 { width: 33%; } 
-.layout-column > .col4 { width: 25%; } 
-.layout-column > .col5 { width: 20%; } 
+.layout-column > .col2 { width: 50%; }
+.layout-column > .col3 { width: 33%; }
+.layout-column > .col4 { width: 25%; }
+.layout-column > .col5 { width: 20%; }
 .layout-column > .col6 { width: 16.5%; }
 .layout-column > .col7 { width: 14%; }
 .layout-column > .col8 { width: 12.5%; }

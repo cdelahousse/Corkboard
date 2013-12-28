@@ -32,7 +32,7 @@ define(['core/Workspace', 'backbone', 'underscore', 'config', 'utils'],
           title : title
         };
 
-        //XXX This is stupid. To fix the doubling bug, I can't add it 
+        //XXX This is stupid. To fix the doubling bug, I can't add it
         //directly to the collection. For this to work in a nicer way, I should
         //just let the collection do the model creation... Oh sigh...
         var Model = this.collection.model;

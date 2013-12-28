@@ -10,7 +10,7 @@ define(['underscore', 'config'], function (_, config) {
 
   // Capitalize first letter of word
   function capitalize (s) {
-    return s.charAt(0).toUpperCase() + s.slice(1); 
+    return s.charAt(0).toUpperCase() + s.slice(1);
   }
 
   // Load CSS relative to the style sheet directory

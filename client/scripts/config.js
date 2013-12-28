@@ -18,5 +18,5 @@ define(['underscore'], function  ( _ ) {
     noteTypes : [ 'image', 'text' ],
     appElement : '#app'
   };
-  
+
 });

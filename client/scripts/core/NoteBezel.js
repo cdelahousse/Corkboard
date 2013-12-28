@@ -42,8 +42,8 @@ define(['text!templates/core/noteBezel.html', 'backbone', 'underscore',
     },
 
     // Delegated to nested views
-    save : function () { this.childView.save(); this.toggleNav(); }, 
-    edit : function () { this.childView.edit(); this.toggleNav(); }, 
+    save : function () { this.childView.save(); this.toggleNav(); },
+    edit : function () { this.childView.edit(); this.toggleNav(); },
     destroy : function () { this.model.destroy(); },
 
     //Switch visual representation between edit and normal mode

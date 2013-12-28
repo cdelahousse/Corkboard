@@ -12,7 +12,7 @@ db.once('open', function callback () {
 });
 
 var Schema = mongoose.Schema;
-var NoteSchema = new Schema({ 
+var NoteSchema = new Schema({
   title : String,
   type : String,
   meta : Schema.Types.Mixed,
@@ -69,7 +69,7 @@ function del(options, next) {
       if (err) { return  next(err); }
       note && note.remove(function (err) {
         if (err) { return  next(err); }
-        return next(); 
+        return next();
       });
     });
   }
