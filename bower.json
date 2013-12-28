@@ -9,7 +9,7 @@
     "requirejs-text": "~2.0.10",
     "gest": "http://panui.soft.carleton.ca:6357/gest/head",
     "socket.io-client": "~0.9.16",
-    "backbone.iobind": "logicalparadox/backbone.iobind"
+    "backbone.iobind": "logicalparadox/backbone.iobind#9382fcf0e29dd02d6755ac07005f1427db4c600f"
   },
   "devDependencies": {}
 }
