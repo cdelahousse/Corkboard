@@ -96,8 +96,6 @@ define(['underscore', 'gest'], function ( _ ) {
   //TODO: use requestAnimation Frame
   function onDragMove(e) {
 
-    e.preventDefault();
-
     var newEvent = prepareEventObject(e, this);
     var dx = newEvent.deltaX;
     var dy = newEvent.deltaY;

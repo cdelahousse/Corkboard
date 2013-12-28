@@ -21,26 +21,27 @@ define(['behaviours/Drag', 'backbone'], function (DragBehaviour, Backbone) {
       //Add drag behaviour
       this.behaviour = new DragBehaviour(this);
 
-      this.behaviour.move(function (e) {
-        var num = overColumnNumber.call(this,e);
-      }.bind(this));
-
-
       //Add hook/handlers for different moments
       this.behaviour.end(function (e) {
-        var layouts = this.model.get('layouts');
-        var overCol = overColumnNumber.call(this,e);
-        if (overCol > -1) {
-          layouts.column = overCol;
-        }
+        if ( hasMoved(e) ) {
 
-        this.model.save('layouts', layouts);
-        this.setLocation();
-      }.bind(this));
+          this._setColumnNumberOnModel(e);
+          this._setLocationInLayout();
+        }
+      });
 
     },
-    //Sets the wrapped note's location within the layout
-    setLocation : function () {
+    _setColumnNumberOnModel: function (event) {
+      var layouts = this.model.get('layouts');
+      var overCol = overColumnNumber.call(this,event);
+      if (overCol > -1) {
+        layouts.column = overCol;
+      }
+
+      this.model.save('layouts', layouts);
+    },
+    _setLocationInLayout: function () {
+      //XXX This may be a hack. Double check this functionality
       var layouts = this.model.get('layouts');
       if ('column' in layouts) {
         this.layout.remove(this);
@@ -49,8 +50,13 @@ define(['behaviours/Drag', 'backbone'], function (DragBehaviour, Backbone) {
     }
   });
 
+  function hasMoved (e) {
+    var TOLERANCE = 3;
+    return e.deltaX > TOLERANCE || e.deltaY > TOLERANCE;
+  }
   //Determine over which column note is at
   function overColumnNumber(e) {
+    //XXX Move this to Layout?
     var columns = this.layout.columns;
     var len = columns.length;
     for (var col = 0; col < len; col++) {

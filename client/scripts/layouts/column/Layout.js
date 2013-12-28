@@ -27,7 +27,7 @@ define(['underscore', 'layouts/column/Wrapper', 'utils'], function ( _ , Wrapper
     },
     _buildLayoutArea: function () {
       var layoutArea = document.createElement('div');
-      layoutArea.classList.add(LAYOUTCLASSNAMES);
+      LAYOUTCLASSNAMES.split(' ').forEach(layoutArea.classList.add.bind(layoutArea.classList));
       var columns = this._buildColumns(this.numberOfColumns);
       layoutArea.appendChild(columns);
       return layoutArea;
