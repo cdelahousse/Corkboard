@@ -1,0 +1,15 @@
+{
+  "name": "Unit tests for Corkboard",
+  "authors": [
+    "Christian Delahousse <christian@delahousse.ca>"
+  ],
+  "main": "index.html",
+  "private": true,
+  "ignore": [
+    "bower_components"
+  ],
+  "dependencies": {
+    "qunit": "~1.12.0",
+    "requirejs": "~2.1.9"
+  }
+}

@@ -31,3 +31,8 @@ Socket.io, ioBind, Mongoose, Grunt.js, and Require.js`
   `node server/app.js`
 
 8. Navigate your browser to `http://localhost:60100`
+
+## Tests
+
+Front End unit tests can be found in `tests/unit`. First, navigate to that
+folder and run `bower install`. Run the tests by using `grunt unit`.

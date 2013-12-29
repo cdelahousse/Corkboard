@@ -3,3 +3,4 @@ dist
 .tmp
 .sass-cache
 client/bower_components
+tests/unit/bower_components

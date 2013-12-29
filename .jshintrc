@@ -80,6 +80,25 @@
     "onevar"        : false,    // true: Allow only one `var` statement per function
     "passfail"      : false,    // true: Stop on first error
     "white"         : false,    // true: Check against strict whitespace and indentation rules
-
-    "predef"        : [ "require", "define", "document" ]
+    "globals"       : {
+      "require"       : false,
+      "define"        : false,
+      "document"      : false,
+      "asyncTest"     : false,
+      "deepEqual"     : false,
+      "equal"         : false,
+      "expect"        : false,
+      "module"        : false,
+      "notDeepEqual"  : false,
+      "notEqual"      : false,
+      "notStrictEqual": false,
+      "ok"            : false,
+      "QUnit"         : false,
+      "raises"        : false,
+      "start"         : false,
+      "stop"          : false,
+      "strictEqual"   : false,
+      "test"          : false
+    }
 }
+

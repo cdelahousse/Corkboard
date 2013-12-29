@@ -1,10 +1,31 @@
-'use strict';
 
 module.exports = function (grunt) {
+  'use strict';
 
   grunt.loadNpmTasks('grunt-exec');
+  grunt.loadNpmTasks('grunt-contrib-qunit');
+  grunt.loadNpmTasks('grunt-contrib-connect');
 
+  var TEST_SERVER_PORT = 9999;
   grunt.initConfig({
+    qunit: {
+      unit: {
+        options: {
+          urls: [
+            'http://localhost:' + TEST_SERVER_PORT + '/tests/unit/index.html'
+          ]
+        }
+      }
+    },
+    connect: {
+      server: {
+        options: {
+          port: TEST_SERVER_PORT,
+          base: '.',
+          // keepalive: true
+        }
+      }
+    },
     exec : {
       drop : {
         cmd : 'mongo corkboard --eval \'db.dropDatabase()\''
@@ -15,6 +36,7 @@ module.exports = function (grunt) {
     }
   });
 
+  grunt.registerTask('unit', 'Run unit tests', ['connect', 'qunit']);
   grunt.registerTask('drop', 'Drop the database', ['exec:drop']);
   grunt.registerTask('server', 'Run the server', ['exec:server']);
 };
