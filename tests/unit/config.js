@@ -12,8 +12,8 @@
   QUnit.config.autostart = false;
 
   require([
-    //Insert tests here
-    'tests/utils.js'
+    'tests/utils.js',
+    'tests/column.js'
   ], function () {
     QUnit.start();
   });

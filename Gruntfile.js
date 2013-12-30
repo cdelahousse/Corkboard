@@ -9,7 +9,7 @@ module.exports = function (grunt) {
   var TEST_SERVER_PORT = 9999;
   grunt.initConfig({
     qunit: {
-      unit: {
+      'unit': {
         options: {
           urls: [
             'http://localhost:' + TEST_SERVER_PORT + '/tests/unit/index.html'
@@ -18,11 +18,10 @@ module.exports = function (grunt) {
       }
     },
     connect: {
-      server: {
+      'test-server': {
         options: {
           port: TEST_SERVER_PORT,
           base: '.',
-          // keepalive: true
         }
       }
     },
@@ -36,7 +35,7 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('unit', 'Run unit tests', ['connect', 'qunit']);
+  grunt.registerTask('unit', 'Run unit tests', ['connect:test-server', 'qunit:unit']);
   grunt.registerTask('drop', 'Drop the database', ['exec:drop']);
   grunt.registerTask('server', 'Run the server', ['exec:server']);
 };

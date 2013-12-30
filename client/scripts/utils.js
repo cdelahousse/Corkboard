@@ -7,6 +7,9 @@ define(['underscore', 'config'], function (_, config) {
     var args = _.toArray(arguments);
     return console.log.apply(console,args);
   }
+  function error(msg) {
+    throw new Error(msg);
+  }
 
   // Capitalize first letter of word
   function capitalize (s) {
@@ -24,8 +27,10 @@ define(['underscore', 'config'], function (_, config) {
     document.getElementsByTagName("head")[0].appendChild(link);
   }
 
+
   return {
     log : log,
+    error: error,
     capitalize : capitalize,
     loadCss : loadCss
   };
