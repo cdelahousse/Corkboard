@@ -1,7 +1,6 @@
 //Main bootstrapping code
-define(['backbone','Router', 'collections/Notes', 'config', 'utils',
-    'sockets','iobind'], function (Backbone, Router, Notes, config,
-      utils, sockets) {
+define(['backbone', 'collections/Notes', 'config', 'utils', 'sockets', 'core/App', 'iobind'],
+       function (Backbone, Notes, config, utils, sockets, AppView) {
   'use strict';
 
   return {
@@ -17,11 +16,13 @@ define(['backbone','Router', 'collections/Notes', 'config', 'utils',
         url : config.apiUrl,
       });
 
-      new Router({collection : notes});
-      Backbone.history.start();
+      new AppView({
+        el : config.appElement,
+        collection : notes
+      });
 
       notes.fetch();
     }
-  }
+  };
 });
 
