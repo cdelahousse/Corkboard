@@ -15,7 +15,9 @@ define(['backbone','underscore', 'utils'], function (Backbone, _ ,  utils) {
 
   };
 
-  _.extend(Type.prototype, Backbone.View.prototype, {
+  Type.extend = Backbone.View.extend;
+  Type.prototype = Object.create(Backbone.View.prototype);
+  _.extend(Type.prototype, {
     render : function () {
       throw new Error('Implement render method for Note Type!');
     },
@@ -26,8 +28,6 @@ define(['backbone','underscore', 'utils'], function (Backbone, _ ,  utils) {
       throw new Error('Implement save method for Note Type!');
     }
   });
-
-  Type.extend = Backbone.View.extend;
 
   return Type;
 });

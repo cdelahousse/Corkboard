@@ -24,7 +24,6 @@ define(['behaviours/Drag', 'backbone'], function (DragBehaviour, Backbone) {
       //Add hook/handlers for different moments
       this.behaviour.end(function (e) {
         if ( hasMoved(e) ) {
-
           this._setColumnNumberOnModel(e);
           this._setLocationInLayout();
         }
