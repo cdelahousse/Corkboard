@@ -13,7 +13,7 @@ define(['behaviours/Drag', 'backbone'], function (DragBehaviour, Backbone) {
       this.model = this.options.view.model;
       this.layout= this.options.layout;
 
-      this.listenTo(this.model, 'change:layouts', this.setLocation);
+      this.listenTo(this.model, 'change:layouts', this._setLocationInLayout);
 
       //Add inner view to this wrapper
       this.el.appendChild(this.innerView.el);
