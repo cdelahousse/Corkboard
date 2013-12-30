@@ -1,0 +1,23 @@
+/* NOTES */
+.note {
+  margin: 0;
+}
+
+.note-bezel {
+  background-color: #efefef;
+  padding: 30px;
+  outline: 1px solid #000;
+}
+.note-bezel > .nav {
+  float: right;
+}
+
+.note-content {
+  background-color: #fff;
+}
+
+/* Utils */
+.hide {
+  display: none;
+}
+
