@@ -24,13 +24,16 @@
         <div id="input-section">
           <input id="note-title" placeholder="Title" />
           <select id="note-type">
-            <!-- Dynamically Generated - see App.js -->
+            <!-- Dynamically Generated -->
           </select>
         </div>
       </nav>
     </div>
-    <!-- build:js scripts/main.js -->
-    <script data-main="scripts/boot" src="bower_components/requirejs/require.js"></script>
-    <!-- endbuild -->
+    <script data-main="scripts/requirejs-config" src="bower_components/requirejs/require.js"></script>
+    <script>
+      require(['corkboard' ], function (corkboard) {
+        corkboard.init();
+      });
+    </script>
   </body>
 </html>
