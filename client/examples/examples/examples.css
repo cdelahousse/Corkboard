@@ -35,3 +35,6 @@ nav {
   display: block;
 }
 
+.layout-column {
+  height: 100%;
+}

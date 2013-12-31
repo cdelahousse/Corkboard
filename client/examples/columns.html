@@ -5,7 +5,7 @@
     <title>Corkboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,
     maximum-scale=1">
-    <link rel="stylesheet" href="examples.css">
+    <link rel="stylesheet" href="examples/examples.css">
   </head>
   <body>
 
@@ -28,8 +28,9 @@
       </nav>
     </div>
     <link rel="stylesheet" href="../styles/corkboard.css">
-    <script data-main="../scripts/requirejs-config" src="../bower_components/requirejs/require.js"></script>
-    <script src="examples.js"></script>
+    <script src="../bower_components/requirejs/require.js"></script>
+    <script src="../scripts/requirejs-config.js"></script>
+    <script src="examples/examples.js"></script>
     <script>
       require(['corkboard', 'workspaces/Column', 'collections/Notes' ],
           function (Corkboard, ColumnWorkspace, Notes) {

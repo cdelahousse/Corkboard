@@ -1,0 +1,22 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #fff;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.kanban-title {
+  text-align: center;
+}
+
+.layout-column .column-title {
+  font-size: 1.2em;
+  text-align: center;
+  font-weight: bold;
+  background-color: lightyellow;
+}
+
+.layout-column .column {
+  background-color: lightyellow;
+}
