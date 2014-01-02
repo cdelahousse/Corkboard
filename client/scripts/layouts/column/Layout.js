@@ -105,7 +105,12 @@ define(['underscore', 'layouts/column/Wrapper', 'utils'], function ( _ , Wrapper
       var wrappedView = this._wrapView(view);
       var layouts = view.model.get('layouts');
       var colNum = Number(layouts.column);
-      this.prependToColumn(colNum,wrappedView.el);
+      if (this._isValidColumnNumber (colNum)) {
+        this._addNoteToColumn(colNum,wrappedView);
+      }
+      else {
+        this._addNoteToColumn(0,wrappedView);
+      }
     },
     _wrapView: function (view) {
       if (view instanceof Wrapper) {
@@ -117,10 +122,16 @@ define(['underscore', 'layouts/column/Wrapper', 'utils'], function ( _ , Wrapper
         });
       }
     },
+    _addNoteToColumn: function (num, note) {
+      this._getInnerColumn(num).appendChild(note.el);
+    },
+
+    /** Append an element to a column */
     appendToColumn: function (num, elem) {
       this._throwForInvalidColumnNumber(num);
       this.getColumn(num).appendChild(elem);
     },
+    /** Prepend an element to a column */
     prependToColumn: function(num, elem) {
       this._throwForInvalidColumnNumber(num);
       var inner = this._getInnerColumn(num);

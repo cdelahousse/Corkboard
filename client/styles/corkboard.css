@@ -4,9 +4,9 @@
 }
 
 .note-bezel {
-  background-color: #000;;
-  padding: 1px;
+  padding: 3px;
   position: relative;
+  outline: 1px solid #000;
 }
 .note-bezel > .nav {
   float: right;

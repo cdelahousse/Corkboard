@@ -7,7 +7,6 @@ define(['backbone', 'underscore', 'collections/Notes', 'kanban/KanbanWorkspace',
     template: _.template(appTemplate),
     initialize: function () {
 
-
       this.workspace = new KanbanWorkspace({
         collection: this.collection
       });
@@ -16,7 +15,7 @@ define(['backbone', 'underscore', 'collections/Notes', 'kanban/KanbanWorkspace',
       this.el.innerHTML = this.template();
       this.workspace.render();
       this.el.querySelector('.kanban-content').appendChild(this.workspace.el);
-    }
+    },
   });
   return AppView;
 
