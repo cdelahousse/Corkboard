@@ -4,6 +4,7 @@ define(['underscore', 'layouts/column/Wrapper', 'utils'], function ( _ , Wrapper
   var DEFAULTNUMCOLUMNS = 6;
   var LAYOUTCLASSNAMES = 'layout layout-column';
   var COLUMNCLASSNAME = 'column';
+  var INNERCOLUMNCLASSNAME = 'column-inner';
   var ColumnLayout = function (parentElem, option) {
 
     if (!parentElem) {
@@ -104,7 +105,7 @@ define(['underscore', 'layouts/column/Wrapper', 'utils'], function ( _ , Wrapper
       var wrappedView = this._wrapView(view);
       var layouts = view.model.get('layouts');
       var colNum = Number(layouts.column);
-      this._addToColumn(wrappedView, colNum);
+      this.prependToColumn(colNum,wrappedView.el);
     },
     _wrapView: function (view) {
       if (view instanceof Wrapper) {
@@ -116,18 +117,31 @@ define(['underscore', 'layouts/column/Wrapper', 'utils'], function ( _ , Wrapper
         });
       }
     },
-    _addToColumn: function (wrappedView, columnNumber) {
-      var elem = wrappedView.el;
-      this._getInnerColumn(columnNumber).appendChild(elem);
+    appendToColumn: function (num, elem) {
+      this._throwForInvalidColumnNumber(num);
+      this.getColumn(num).appendChild(elem);
+    },
+    prependToColumn: function(num, elem) {
+      this._throwForInvalidColumnNumber(num);
+      var inner = this._getInnerColumn(num);
+      this.getColumn(num).insertBefore(elem, inner);
+    },
+    getColumn: function (num) {
+      this._throwForInvalidColumnNumber(num);
+      var query = '.' + COLUMNCLASSNAME + num;
+      return this.el.querySelector(query);
     },
     _getInnerColumn: function (columnNumber) {
-      //if possible, Add to specific column, if not, add to first column
-      var isAddable = this._isAddableToColumns(columnNumber);
-      var query = '.' + COLUMNCLASSNAME + (isAddable ? columnNumber : 0) + '> .column-inner';
-      return this.layoutArea.querySelector(query);
+      var query = '.' + INNERCOLUMNCLASSNAME;
+      return this.getColumn(columnNumber).querySelector(query);
     },
-    _isAddableToColumns: function (columnNumber) {
+    _isValidColumnNumber: function (columnNumber) {
       return _.isFinite(columnNumber) && columnNumber > -1 && this.numberOfColumns > columnNumber;
+    },
+    _throwForInvalidColumnNumber: function (columnNumber) {
+      if (!this._isValidColumnNumber(columnNumber)) {
+        return utils.error('Invalid column number');
+      }
     },
 
     // Remove single view from layout

@@ -95,6 +95,7 @@
       "ok"            : false,
       "QUnit"         : false,
       "raises"        : false,
+      "throws"        : false,
       "start"         : false,
       "stop"          : false,
       "strictEqual"   : false,

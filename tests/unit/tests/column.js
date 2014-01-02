@@ -30,8 +30,12 @@ define(['underscore', 'layouts/column/Layout'], function ( _, Layout) {
   function numberOfElements (selector) {
     return queryAll(selector).length;
   }
+  function hasClass(className, elem) {
+    return elem.classList.contains(className);
+  }
 
   var colCss = '.column';
+  var COLUMNCLASSNAME = 'column';
   var defaultNumOfCols = 6; //XXX
   test('Constructor with no other args creates default amount of columns', 1, function () {
     layout = new Layout(fixture);
@@ -64,6 +68,44 @@ define(['underscore', 'layouts/column/Layout'], function ( _, Layout) {
       equal(box.textContent, titles[index]);
     });
 
+  });
+
+  test('getColumn(number)', 3, function () {
+    var col0 = layout.getColumn(0);
+    var col1 = layout.getColumn(1);
+    var col2 = layout.getColumn(2);
+
+
+    ok(hasClass(COLUMNCLASSNAME + 0, col0));
+    ok(hasClass(COLUMNCLASSNAME + 1, col1));
+    ok(hasClass(COLUMNCLASSNAME + 2, col2));
+
+  });
+  test('getColumn with invalid number',1, function () {
+    throws(function () {
+      layout.getColumn(10000);
+    });
+  });
+
+  function createTestElem() {
+    var elem = document.createElement('div');
+    elem.id = 'testElem';
+    return elem;
+  }
+  test('prependToColumn', function () {
+    var elem = createTestElem();
+    layout.prependToColumn(0, elem);
+
+    var col = layout.getColumn(0);
+    equal(col.firstChild.id, elem.id);
+  });
+
+  test('appendToColumn', function () {
+    var elem = createTestElem();
+    layout.appendToColumn(0, elem);
+
+    var col = layout.getColumn(0);
+    equal(col.lastChild.id, elem.id);
   });
 
 });
