@@ -51,7 +51,7 @@ define(['behaviours/Drag', 'backbone'], function (DragBehaviour, Backbone) {
 
   function hasMoved (e) {
     var TOLERANCE = 3;
-    return e.deltaX > TOLERANCE || e.deltaY > TOLERANCE;
+    return Math.abs(e.deltaX) > TOLERANCE || Math.abs(e.deltaY) > TOLERANCE;
   }
   //Determine over which column note is at
   function overColumnNumber(e) {
