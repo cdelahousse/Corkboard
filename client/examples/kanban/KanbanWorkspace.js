@@ -20,7 +20,6 @@ define(['underscore', 'core/Workspace', 'layouts/column/Layout', 'text!kanban/te
         },
         data: $('#note-text').val()
       });
-      console.log(this.collection);
     },
 
     _buildUi: function () {
