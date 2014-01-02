@@ -9,7 +9,9 @@ define(['text!templates/core/noteBezel.html', 'backbone', 'underscore',
   var NoteBezel = Backbone.View.extend({
     template : noteTmpl,
     attributes : function (){
-      return { class : 'note note-' + this.model.get('type') };
+      return {
+        class : 'note note-' + this.model.get('type')
+      };
     },
     initialize : function () {
 
@@ -24,7 +26,7 @@ define(['text!templates/core/noteBezel.html', 'backbone', 'underscore',
           el: this.el.querySelector('.note-content')
         });
 
-        //Initialize to Edit Mode on model creation
+        //XXX Initialize to Edit Mode on model creation
         if (this.model.isNew()) {
           this.edit();
         }
@@ -32,19 +34,27 @@ define(['text!templates/core/noteBezel.html', 'backbone', 'underscore',
     },
     render : function () {
       this.el.innerHTML = this.template;
+      this.hideNav();
 
       return this;
     },
     events : {
       'click .nav > .delete' : 'destroy',
       'click .nav > .edit' : 'edit',
-      'click .nav > .save' : 'save'
+      'click .nav > .save' : 'save',
+      'mouseover' : 'showNav',
+      'mouseout' : 'hideNav'
     },
 
-    // Delegated to nested views
     save : function () { this.childView.save(); this.toggleNav(); },
     edit : function () { this.childView.edit(); this.toggleNav(); },
     destroy : function () { this.model.destroy(); },
+    hideNav: function () {
+      this.el.querySelector('.nav').classList.add('hide');
+    },
+    showNav: function () {
+      this.el.querySelector('.nav').classList.remove('hide');
+    },
 
     //Switch visual representation between edit and normal mode
     toggleNav : function (){ this.$el.find('.edit,.save').toggleClass('hide');},

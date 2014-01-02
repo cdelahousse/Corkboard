@@ -32,11 +32,11 @@
     <script src="../scripts/requirejs-config.js"></script>
     <script src="examples/examples.js"></script>
     <script>
-      require(['corkboard', 'workspaces/Free', 'collections/Notes' ],
-          function (Corkboard, FreeWorkspace, Notes) {
+      require(['corkboard', 'workspaces/Free', 'collections/Notes', 'models/Note' ],
+          function (Corkboard, FreeWorkspace, Notes, Note) {
 
         Corkboard.init();
-        buildUiForExample(Corkboard, Notes.model);
+        buildUiForExample(Corkboard, Note);
 
         var notes = getAndFetchNotes(Notes, Corkboard.config.apiUrl);
         var WorkspaceView = new FreeWorkspace({

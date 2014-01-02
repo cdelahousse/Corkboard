@@ -20,7 +20,8 @@ function buildUiForExample (Corkboard, Note) {
     //XXX This is stupid. To fix the doubling bug, I can't add it
     //directly to the collection. For this to work in a nicer way, I should
     //just let the collection do the model creation... Oh sigh...
-    (new Note(attrs)).save();
+    var note = new Note(attrs);
+    note.save();
 
   });
 }

@@ -4,12 +4,15 @@
 }
 
 .note-bezel {
-  background-color: #efefef;
-  padding: 30px;
-  outline: 1px solid #000;
+  background-color: #000;;
+  padding: 1px;
+  position: relative;
 }
 .note-bezel > .nav {
   float: right;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 .note-content {
